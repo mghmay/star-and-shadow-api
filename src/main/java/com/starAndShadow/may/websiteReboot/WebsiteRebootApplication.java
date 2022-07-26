@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @CrossOrigin(origins="*")
 @SpringBootApplication
@@ -26,4 +27,9 @@ public class WebsiteRebootApplication {
 	@GetMapping("/All_Actors")
 	public @ResponseBody
 	Iterable<Film>getAllFilms() { return filmRepository.findAll();}
+
+	@GetMapping("/All_Actors")
+	public Search search(@RequestParam(value = "title") String title) {
+		return new Search(String.format(title));
+	}
 }
