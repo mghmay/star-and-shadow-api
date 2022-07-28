@@ -18,7 +18,7 @@ public class Film {
     @Column(name="description")
     private String description;
     @Column(name="release_year")
-    private String releaseYear;
+    private Integer releaseYear;
     @Column(name="language_id")
     private Integer languageId;
     @Column(name="original_language_id")
@@ -35,7 +35,7 @@ public class Film {
     private String rating;
     @Column(name="special_features")
     private String specialFeatures;
-    @Column(name="last_update", insertable=false)
+    @Column(name="last_update")
     private String lastUpdate;
 
     public Film(String title,
@@ -90,11 +90,11 @@ public class Film {
         this.description = description;
     }
 
-    public String getReleaseYear() {
+    public Integer getReleaseYear() {
         return releaseYear;
     }
 
-    public void setReleaseYear(String releaseYear) {
+    public void setReleaseYear(Integer releaseYear) {
         this.releaseYear = releaseYear;
     }
 
@@ -164,6 +164,10 @@ public class Film {
 
     public String getLastUpdate() {
         return lastUpdate;
+    }
+
+    public void setLastUpdate(String lastUpdate) {
+        this.lastUpdate = lastUpdate;
     }
 
     @Override

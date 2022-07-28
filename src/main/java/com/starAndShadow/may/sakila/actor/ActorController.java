@@ -11,7 +11,7 @@ import java.util.Optional;
 
 @CrossOrigin(origins="*")
 @RestController  //handles GET, POST, DELETE, PUT requests
-@RequestMapping("/actor")
+@RequestMapping("/actors")
 public class ActorController {
 
 	@Autowired

@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.Map;
 import java.util.Optional;
 
@@ -22,68 +23,74 @@ public class FilmController {
 	@GetMapping
 	public Iterable<Film>getAllFilms() { return filmRepository.findAll();}
 
+	@PostMapping
+	@ResponseStatus(HttpStatus.CREATED)
+	public @ResponseBody Film addFilm( @RequestBody Film film ) { // title, description, languageId, rentalDuration, rentalRate, replacementCost,
+		LocalDateTime now = LocalDateTime.now();
+		film.setLastUpdate(String.valueOf(now));
+		return filmRepository.save(film);
+	}
+
 	@GetMapping("/search")
 	public Iterable<Film> searchByTitle(@RequestParam String title) { return filmRepository.findByTitleContainingIgnoreCase(title); }
 
-    @GetMapping("{id}")
+	@GetMapping("{id}")
 	public Optional<Film> searchById(@PathVariable Integer id) { return filmRepository.findById(id); }
+
 
 	@PutMapping("{id}")
 	public @ResponseBody
 	Film updateFilmById(@PathVariable Integer id, @RequestBody Map<String, Object> changes) {
-		Film filmOld = filmRepository.findById(id)
+		Film film = filmRepository.findById(id)
 				.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "No film exists with that id."));
-		Film filmCopy = new Film(filmOld);
 		changes.forEach(
 				(change, value) -> {
 					switch (change) {
 						case "title":
-							filmCopy.setTitle((String) value);
+							film.setTitle((String) value);
 							break;
 						case "description":
-							filmCopy.setDescription((String) value);
+							film.setDescription((String) value);
 							break;
 						case "releaseYear":
-							filmCopy.setReleaseYear((String) value);
+							film.setReleaseYear((Integer) value);
 							break;
 						case "languageId":
-							filmCopy.setLanguageId((Integer) value);
+							film.setLanguageId((Integer) value);
 							break;
 						case "originalLanguageId":
-							filmCopy.setOriginalLanguageId((Integer) value);
+							film.setOriginalLanguageId((Integer) value);
 							break;
 						case "rentalDuration":
-							filmCopy.setRentalDuration((Integer) value);
+							film.setRentalDuration((Integer) value);
 							break;
 						case "rentalRate":
-							filmCopy.setRentalRate((BigDecimal) value);
+							film.setRentalRate((BigDecimal) value);
 							break;
 						case "length":
-							filmCopy.setLength((Integer) value);
+							film.setLength((Integer) value);
 							break;
 						case "replacementCost":
-							filmCopy.setReplacementCost((BigDecimal) value);
+							film.setReplacementCost((BigDecimal) value);
 							break;
 						case "rating":
-							filmCopy.setRating((String) value);
+							film.setRating((String) value);
 							break;
 						case "specialFeatures":
-							filmCopy.setSpecialFeatures((String) value);
+							film.setSpecialFeatures((String) value);
 							break;
 					}
 			}
 		);
-
-		return filmRepository.save(filmCopy);
+		LocalDateTime now = LocalDateTime.now();
+		film.setLastUpdate(String.valueOf(now));
+		return filmRepository.save(film);
 	}
-
-	@PostMapping
-	@ResponseStatus(HttpStatus.CREATED)
-	public @ResponseBody Film addFilm( @RequestBody Film film ) { return filmRepository.save(film); }
 
 	@DeleteMapping("{id}")
-	public @ResponseBody void deleteFilmById(@RequestParam Integer id){
+	public @ResponseBody void deleteFilmById(@PathVariable Integer id){
 		filmRepository.deleteById(id);
 	}
+
 
 }
