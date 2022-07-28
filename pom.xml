@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.starAndShadow.may</groupId>
-	<artifactId>websiteReboot</artifactId>
+	<artifactId>sakila</artifactId>
 	<version>1.0.2.RELEASE</version>
-	<name>websiteReboot</name>
+	<name>sakila</name>
 	<description>Demo project for Spring Boot</description>
 	<properties>
 		<java.version>18</java.version>
