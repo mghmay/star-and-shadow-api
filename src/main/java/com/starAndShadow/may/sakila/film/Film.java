@@ -1,7 +1,11 @@
 package com.starAndShadow.may.sakila.film;
 
+import com.starAndShadow.may.sakila.actor.Actor;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name="film")
@@ -37,6 +41,19 @@ public class Film {
     private String specialFeatures;
     @Column(name="last_update")
     private String lastUpdate;
+
+    @ManyToMany
+    @JoinTable(name = "film_actor",
+                joinColumns = @JoinColumn(name = "actor_id", referencedColumnName = "film_id"))
+    private List<Actor> actors = new ArrayList<>();
+
+    public List<Actor> getActors() {
+        return actors;
+    }
+
+    public void setActors(List<Actor> actors) {
+        this.actors = actors;
+    }
 
     public Film(String title,
                 String description,

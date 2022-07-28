@@ -1,12 +1,18 @@
 package com.starAndShadow.may.sakila.film;
 
+import com.starAndShadow.may.sakila.actor.Actor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -23,6 +29,14 @@ public class FilmController {
 	@GetMapping
 	public Iterable<Film>getAllFilms() { return filmRepository.findAll();}
 
+	@ManyToMany
+	@JoinTable(
+			name = "film_actor",
+			joinColumns = @JoinColumn(name = "film_id"),
+			inverseJoinColumns = @JoinColumn(name = "actor_id")
+	)
+	List<Actor> filmActor = new ArrayList<>();
+
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
 	public @ResponseBody Film addFilm( @RequestBody Film film ) { // title, description, languageId, rentalDuration, rentalRate, replacementCost,
@@ -36,7 +50,6 @@ public class FilmController {
 
 	@GetMapping("{id}")
 	public Optional<Film> searchById(@PathVariable Integer id) { return filmRepository.findById(id); }
-
 
 	@PutMapping("{id}")
 	public @ResponseBody
