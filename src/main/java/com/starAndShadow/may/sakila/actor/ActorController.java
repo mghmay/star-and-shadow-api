@@ -1,13 +1,17 @@
 package com.starAndShadow.may.sakila.actor;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
+import java.time.LocalDateTime;
+import java.util.Map;
 import java.util.Optional;
 
 @CrossOrigin(origins="*")
 @RestController  //handles GET, POST, DELETE, PUT requests
-@RequestMapping("/sakila")
+@RequestMapping("/actor")
 public class ActorController {
 
 	@Autowired
@@ -17,44 +21,48 @@ public class ActorController {
 		this.actorRepository = actorRepository;
 	}
 
-	@GetMapping("/all_actors")
-	public @ResponseBody
-	Iterable<Actor>getAllActors() { return actorRepository.findAll();}
+	@GetMapping
+	public Iterable<Actor>getAllActors() { return actorRepository.findAll();}
 
-	@GetMapping("/all_actors/search{id}")
-	public @ResponseBody
-	Optional<Actor> searchById(@RequestParam Integer id) {
-		return actorRepository.findById(id);
+	@PostMapping
+	@ResponseStatus(HttpStatus.CREATED)
+	public @ResponseBody Actor addActor( @RequestBody Actor actor ) { // firstName, lastName
+		LocalDateTime now = LocalDateTime.now();
+		actor.setLastUpdate(String.valueOf(now));
+		return actorRepository.save(actor);
 	}
 
-	@GetMapping("/all_actors/search_by_name{name}")
+	@GetMapping("/search")
+	public Iterable<Actor> searchByName(@RequestParam String name) { return actorRepository.findByFullNameContainingIgnoreCase(name); }
+
+	@GetMapping("{id}")
+	public Optional<Actor> searchById(@PathVariable Integer id) { return actorRepository.findById(id); }
+
+	@PutMapping("{id}")
 	public @ResponseBody
-	Iterable<Actor>SearchActorsByName(@RequestParam String name) {
-		return actorRepository.findByFullNameContainingIgnoreCase(name);
+	Actor updateActorById(@PathVariable Integer id, @RequestBody Map<String, Object> changes) {
+		Actor actor = actorRepository.findById(id)
+				.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "No actor exists with that id."));
+		changes.forEach(
+			(change, value) -> {
+				switch (change) {
+					case "firstName":
+						actor.setFirstName((String) value);
+						break;
+					case "lastName":
+						actor.setLastName((String) value);
+						break;
+				}
+			}
+		);
+		LocalDateTime now = LocalDateTime.now();
+		actor.setLastUpdate(String.valueOf(now));
+		return actorRepository.save(actor);
 	}
 
-	@PostMapping("/all_actors/add")
-	public @ResponseBody
-	Actor addActor(@RequestParam String first_name,
-				   @RequestParam String last_name
-				  ) {
-		Actor newActor = new Actor(first_name, last_name);
-		return actorRepository.save(newActor);
-	}
-
-//	@PutMapping("/all_actors/update{id}")
-//	public @ResponseBody
-//	Actor updateActor(@RequestParam Integer id,
-//					  @RequestParam String attribute,
-//					  @RequestParam String new_value
-//					  ) {
-//		Optional<Actor> actor = actorRepository.findById(id);
-//
-//	}
-
-	@DeleteMapping("/all_actors/delete{id}")
-	public @ResponseBody
-	void deleteActorById(@RequestParam Integer id){
+	@DeleteMapping("{id}")
+	public @ResponseBody void deleteActorById(@PathVariable Integer id){
 		actorRepository.deleteById(id);
 	}
 }
+

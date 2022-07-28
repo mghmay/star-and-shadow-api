@@ -21,6 +21,9 @@ public class Actor {
     @Formula("concat(first_name, ' ', last_name)")
     private String fullName;
 
+    @Column(name="last_update")
+    private String lastUpdate;
+
     public Actor(String firstName, String lastName) {
         this.firstName = firstName;
         this.lastName = lastName;
@@ -54,6 +57,14 @@ public class Actor {
 
     public String getFullName() {
         return fullName;
+    }
+
+    public String getLastUpdate() {
+        return lastUpdate;
+    }
+
+    public void setLastUpdate(String lastUpdate) {
+        this.lastUpdate = lastUpdate;
     }
 
     @Override
