@@ -5,11 +5,12 @@ import java.io.Serializable;
 
 @Entity
 @Table(name="film_actor")
-@IdClass(FilmActorKey.class)
 public class FilmActor implements Serializable {
     @Id
+    @Column(name="film_id")
     private int filmId;
     @Id
+    @Column(name="actor_id")
     private int actorId;
 
     public FilmActor(int filmId, int actorId) {

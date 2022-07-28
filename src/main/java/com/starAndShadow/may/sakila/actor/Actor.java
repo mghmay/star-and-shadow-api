@@ -1,12 +1,10 @@
 package com.starAndShadow.may.sakila.actor;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.starAndShadow.may.sakila.film.Film;
 import org.hibernate.annotations.Formula;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name="actor")
@@ -16,9 +14,9 @@ public class Actor {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int actorId;
 
-    @JsonIgnore
-    @ManyToMany(mappedBy = "filmActor")
-    List<Film> films = new ArrayList<>();
+//    @JsonIgnore
+    @ManyToMany(mappedBy = "filmActors")
+    Set<Film> films;
 
     //attribute
     @Column(name="first_name")

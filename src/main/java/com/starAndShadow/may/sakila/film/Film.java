@@ -4,8 +4,7 @@ import com.starAndShadow.may.sakila.actor.Actor;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name="film")
@@ -23,8 +22,11 @@ public class Film {
     private String description;
     @Column(name="release_year")
     private Integer releaseYear;
-    @Column(name="language_id")
+    @Column(name = "language_id")
     private Integer languageId;
+    @ManyToOne
+    @JoinColumn(name="language_id", insertable = false, updatable = false)
+    private Language language;
     @Column(name="original_language_id")
     private Integer originalLanguageId;
     @Column(name="rental_duration")
@@ -39,21 +41,16 @@ public class Film {
     private String rating;
     @Column(name="special_features")
     private String specialFeatures;
-    @Column(name="last_update")
-    private String lastUpdate;
 
     @ManyToMany
-    @JoinTable(name = "film_actor",
-                joinColumns = @JoinColumn(name = "actor_id", referencedColumnName = "film_id"))
-    private List<Actor> actors = new ArrayList<>();
-
-    public List<Actor> getActors() {
-        return actors;
-    }
-
-    public void setActors(List<Actor> actors) {
-        this.actors = actors;
-    }
+            @JoinTable(
+                    name="film_actor",
+                    joinColumns = @JoinColumn(name = "film_id"),
+                    inverseJoinColumns = @JoinColumn(name = "actor_id")
+            )
+    Set<Actor> filmActors;
+    @Column(name="last_update")
+    private String lastUpdate;
 
     public Film(String title,
                 String description,
@@ -69,22 +66,6 @@ public class Film {
         this.replacementCost = replacementCost;
     }
 
-    public Film(Film film) {
-        this.filmId = film.filmId;
-        this.title = film.title;
-        this.description = film.description;
-        this.releaseYear = film.releaseYear;
-        this.languageId = film.languageId;
-        this.originalLanguageId = film.originalLanguageId;
-        this.rentalDuration = film.rentalDuration;
-        this.rentalRate = film.rentalRate;
-        this.length = film.length;
-        this.replacementCost = film.replacementCost;
-        this.rating = film.rating;
-        this.specialFeatures = film.specialFeatures;
-        this.lastUpdate = film.lastUpdate;
-    }
-
     public Film() {}
 
     public Integer getFilmId() {
@@ -93,6 +74,14 @@ public class Film {
 
     public String getTitle() {
         return title;
+    }
+
+    public Set<Actor> getActors() {
+        return filmActors;
+    }
+
+    public void setActors(Set<Actor> actors) {
+        this.filmActors = filmActors;
     }
 
     public void setTitle(String title) {
@@ -115,10 +104,9 @@ public class Film {
         this.releaseYear = releaseYear;
     }
 
-    public Integer getLanguageId() {
-        return languageId;
+    public Language getLanguage() {
+        return language;
     }
-
     public void setLanguageId(Integer languageId) {
         this.languageId = languageId;
     }
