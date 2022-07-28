@@ -24,7 +24,7 @@ public class Film {
     @Column(name="original_language_id")
     private Integer originalLanguageId;
     @Column(name="rental_duration")
-    private BigDecimal rentalDuration;
+    private Integer rentalDuration;
     @Column(name="rental_rate")
     private BigDecimal rentalRate;
     @Column(name="length")
@@ -41,7 +41,7 @@ public class Film {
     public Film(String title,
                 String description,
                 Integer languageId,
-                BigDecimal rentalDuration,
+                Integer rentalDuration,
                 BigDecimal rentalRate,
                 BigDecimal replacementCost ) {
         this.title = title;
@@ -50,6 +50,22 @@ public class Film {
         this.rentalDuration = rentalDuration;
         this.rentalRate = rentalRate;
         this.replacementCost = replacementCost;
+    }
+
+    public Film(Film film) {
+        this.filmId = film.filmId;
+        this.title = film.title;
+        this.description = film.description;
+        this.releaseYear = film.releaseYear;
+        this.languageId = film.languageId;
+        this.originalLanguageId = film.originalLanguageId;
+        this.rentalDuration = film.rentalDuration;
+        this.rentalRate = film.rentalRate;
+        this.length = film.length;
+        this.replacementCost = film.replacementCost;
+        this.rating = film.rating;
+        this.specialFeatures = film.specialFeatures;
+        this.lastUpdate = film.lastUpdate;
     }
 
     public Film() {}
@@ -98,11 +114,11 @@ public class Film {
         this.originalLanguageId = originalLanguageId;
     }
 
-    public BigDecimal getRentalDuration() {
+    public Integer getRentalDuration() {
         return rentalDuration;
     }
 
-    public void setRentalDuration(BigDecimal rentalDuration) {
+    public void setRentalDuration(Integer rentalDuration) {
         this.rentalDuration = rentalDuration;
     }
 
