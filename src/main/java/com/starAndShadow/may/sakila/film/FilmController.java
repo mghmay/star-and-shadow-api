@@ -9,7 +9,6 @@ import org.springframework.web.server.ResponseStatusException;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -57,47 +56,7 @@ public class FilmController {
 	Film updateFilmById(@PathVariable Integer id, @RequestBody Map<String, Object> changes) {
 		Film film = filmRepository.findById(id)
 				.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "No film exists with that id."));
-		changes.forEach(
-				(change, value) -> {
-					switch (change) {
-						case "title":
-							film.setTitle((String) value);
-							break;
-						case "description":
-							film.setDescription((String) value);
-							break;
-						case "releaseYear":
-							film.setReleaseYear((Integer) value);
-							break;
-						case "languageId":
-							film.setLanguageId((Integer) value);
-							break;
-						case "originalLanguageId":
-							film.setOriginalLanguageId((Integer) value);
-							break;
-						case "rentalDuration":
-							film.setRentalDuration((Integer) value);
-							break;
-						case "rentalRate":
-							film.setRentalRate((BigDecimal) value);
-							break;
-						case "length":
-							film.setLength((Integer) value);
-							break;
-						case "replacementCost":
-							film.setReplacementCost((BigDecimal) value);
-							break;
-						case "rating":
-							film.setRating((String) value);
-							break;
-						case "specialFeatures":
-							film.setSpecialFeatures((String) value);
-							break;
-					}
-			}
-		);
-		LocalDateTime now = LocalDateTime.now();
-		film.setLastUpdate(String.valueOf(now));
+		film.update(changes);
 		return filmRepository.save(film);
 	}
 

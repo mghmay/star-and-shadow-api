@@ -4,6 +4,8 @@ import com.starAndShadow.may.sakila.film.Film;
 import org.hibernate.annotations.Formula;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
+import java.util.Map;
 import java.util.Set;
 
 @Entity
@@ -73,6 +75,23 @@ public class Actor {
         this.lastUpdate = lastUpdate;
     }
 
+    public void update(Map<String, Object> changes) {
+        changes.forEach(
+                (change, value) -> {
+                    switch (change) {
+                        case "firstName":
+                            this.setFirstName((String) value);
+                            break;
+                        case "lastName":
+                            this.setLastName((String) value);
+                            break;
+                    }
+                }
+        );
+        LocalDateTime now = LocalDateTime.now();
+        this.setLastUpdate(String.valueOf(now));
+    }
+
     @Override
     public String toString() {
         return "{" +
@@ -81,6 +100,7 @@ public class Actor {
                 "\", \"year\"=\"" + lastName +
                 "\"}";
     }
+
 }
 
 

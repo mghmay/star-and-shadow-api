@@ -43,20 +43,7 @@ public class ActorController {
 	Actor updateActorById(@PathVariable Integer id, @RequestBody Map<String, Object> changes) {
 		Actor actor = actorRepository.findById(id)
 				.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "No actor exists with that id."));
-		changes.forEach(
-			(change, value) -> {
-				switch (change) {
-					case "firstName":
-						actor.setFirstName((String) value);
-						break;
-					case "lastName":
-						actor.setLastName((String) value);
-						break;
-				}
-			}
-		);
-		LocalDateTime now = LocalDateTime.now();
-		actor.setLastUpdate(String.valueOf(now));
+		actor.update(changes);
 		return actorRepository.save(actor);
 	}
 

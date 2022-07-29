@@ -4,6 +4,8 @@ import com.starAndShadow.may.sakila.actor.Actor;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
+import java.util.Map;
 import java.util.Set;
 
 @Entity
@@ -67,6 +69,50 @@ public class Film {
     }
 
     public Film() {}
+
+    public void update(Map<String, Object> changes) {
+        changes.forEach(
+                (change, value) -> {
+                    switch (change) {
+                        case "title":
+                            this.setTitle((String) value);
+                            break;
+                        case "description":
+                            this.setDescription((String) value);
+                            break;
+                        case "releaseYear":
+                            this.setReleaseYear((Integer) value);
+                            break;
+                        case "languageId":
+                            this.setLanguageId((Integer) value);
+                            break;
+                        case "originalLanguageId":
+                            this.setOriginalLanguageId((Integer) value);
+                            break;
+                        case "rentalDuration":
+                            this.setRentalDuration((Integer) value);
+                            break;
+                        case "rentalRate":
+                            this.setRentalRate((BigDecimal) value);
+                            break;
+                        case "length":
+                            this.setLength((Integer) value);
+                            break;
+                        case "replacementCost":
+                            this.setReplacementCost((BigDecimal) value);
+                            break;
+                        case "rating":
+                            this.setRating((String) value);
+                            break;
+                        case "specialFeatures":
+                            this.setSpecialFeatures((String) value);
+                            break;
+                    }
+                }
+        );
+        LocalDateTime now = LocalDateTime.now();
+        this.setLastUpdate(String.valueOf(now));
+    }
 
     public Integer getFilmId() {
         return filmId;
