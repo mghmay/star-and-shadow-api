@@ -1,10 +1,13 @@
 package com.starAndShadow.may.sakila.film;
 
 import com.starAndShadow.may.sakila.actor.Actor;
+import com.starAndShadow.may.sakila.category.Category;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -43,6 +46,14 @@ public class Film {
     private String rating;
     @Column(name="special_features")
     private String specialFeatures;
+
+    @ManyToMany
+    @JoinTable(
+            name = "film_category",
+            joinColumns = @JoinColumn(name = "film_id"),
+            inverseJoinColumns = @JoinColumn(name = "category_id")
+    )
+    List<Category> filmCategory = new ArrayList<>();
 
     @ManyToMany
             @JoinTable(
@@ -116,6 +127,14 @@ public class Film {
 
     public Integer getFilmId() {
         return filmId;
+    }
+
+    public List<Category> getFilmCategory() {
+        return filmCategory;
+    }
+
+    public void setFilmCategory(List<Category> filmCategory) {
+        this.filmCategory = filmCategory;
     }
 
     public String getTitle() {
