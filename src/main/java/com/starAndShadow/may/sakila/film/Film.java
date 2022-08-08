@@ -32,6 +32,9 @@ public class Film {
     @ManyToOne
     @JoinColumn(name="language_id", insertable = false, updatable = false)
     private Language language;
+
+    @OneToOne
+    private Film film;
     @Column(name="original_language_id")
     private Integer originalLanguageId;
     @Column(name="rental_duration")

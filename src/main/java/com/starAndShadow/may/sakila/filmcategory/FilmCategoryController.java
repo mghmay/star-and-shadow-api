@@ -1,4 +1,5 @@
 package com.starAndShadow.may.sakila.filmcategory;
+
 import org.springframework.web.bind.annotation.*;
 
 @RestController  //handles GET, POST, DELETE, PUT requests
@@ -17,6 +18,9 @@ public class FilmCategoryController {
     public void setFilmCategoryRepository(FilmCategoryRepository filmCategoryRepository) {
         this.filmCategoryRepository = filmCategoryRepository;
     }
+
+    @GetMapping
+    public Iterable<FilmCategory>getAllFilmsByCategory() { return filmCategoryRepository.findAll();}
 
     // Create new film-category entry
     @PostMapping

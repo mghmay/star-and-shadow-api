@@ -1,6 +1,9 @@
 package com.starAndShadow.may.sakila.filmcategory;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.IdClass;
+import javax.persistence.Table;
 import java.io.Serializable;
 
 @Entity
@@ -11,6 +14,7 @@ public class FilmCategory implements Serializable {
     private int filmId;
     @Id
     private int categoryId;
+
 
     public FilmCategory(int filmId, int categoryId) {
         this.filmId = filmId;
