@@ -148,10 +148,6 @@ public class Film {
         return filmActors;
     }
 
-    public void setActors(Set<Actor> actors) {
-        this.filmActors = filmActors;
-    }
-
     public void setTitle(String title) {
         this.title = title;
     }
