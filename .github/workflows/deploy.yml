@@ -19,7 +19,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: artifact
-          path: target/aws-demo.jar
+          path: target/sakila-api.jar
   deploy:
     needs: build
     name: Deploy
@@ -35,8 +35,8 @@ jobs:
           aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           use_existing_version_if_available: false
-          application_name: demo
-          environment_name: Demo-env
+          application_name: sample
+          environment_name: Sample-env
           version_label: ${{github.SHA}}
           region: eu-west-2
-          deployment_package: aws-demo.jar
+          deployment_package: sakila-api.jar
