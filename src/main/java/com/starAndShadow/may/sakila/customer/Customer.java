@@ -32,9 +32,6 @@ public class Customer {
     @Column(name="last_update")
     private String lastUpdate;
 
-    @ManyToOne
-    @JoinColumn(name="customer_id", insertable = false, updatable = false)
-    private Customer customer;
 
     public Customer(int customerId, String firstName, String lastName, String fullName, String email, String active, String createDate, String lastUpdate) {
         this.firstName = firstName;

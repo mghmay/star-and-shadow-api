@@ -5,11 +5,10 @@ import java.io.Serializable;
 
 @Embeddable
 public class FilmCategoryKey implements Serializable {
-    @Id
+
     @Column(name="film_id")
     private Integer filmId;
 
-    @Id
     @Column(name="category_id")
     private Integer categoryId;
 
