@@ -38,5 +38,5 @@ jobs:
           application_name: sample
           environment_name: Sample-env
           version_label: ${{github.SHA}}
-          region: eu-west-2
+          region: us-east-1
           deployment_package: sakila-api.jar
