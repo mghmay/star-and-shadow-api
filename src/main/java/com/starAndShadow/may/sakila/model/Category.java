@@ -1,4 +1,4 @@
-package com.starAndShadow.may.sakila.category;
+package com.starAndShadow.may.sakila.model;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;

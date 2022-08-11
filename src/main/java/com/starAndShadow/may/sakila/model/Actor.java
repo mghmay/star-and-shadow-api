@@ -1,6 +1,5 @@
-package com.starAndShadow.may.sakila.actor;
+package com.starAndShadow.may.sakila.model;
 
-import com.starAndShadow.may.sakila.film.Film;
 import org.hibernate.annotations.Formula;
 
 import javax.persistence.*;

@@ -1,5 +1,6 @@
-package com.starAndShadow.may.sakila.actor;
+package com.starAndShadow.may.sakila.repository;
 
+import com.starAndShadow.may.sakila.model.Actor;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 

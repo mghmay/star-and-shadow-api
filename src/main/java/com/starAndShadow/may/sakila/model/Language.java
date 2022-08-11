@@ -1,4 +1,4 @@
-package com.starAndShadow.may.sakila.language;
+package com.starAndShadow.may.sakila.model;
 
 import javax.persistence.*;
 import java.io.Serializable;

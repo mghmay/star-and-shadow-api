@@ -1,5 +1,7 @@
-package com.starAndShadow.may.sakila.film;
+package com.starAndShadow.may.sakila.controller;
 
+import com.starAndShadow.may.sakila.repository.FilmRepository;
+import com.starAndShadow.may.sakila.model.Film;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -21,7 +23,19 @@ public class FilmController {
 	}
 
 	@GetMapping
-	public Iterable<Film>getAllFilms() { return filmRepository.findAll();}
+	public Iterable<Film> getAllFilmsFilterable(@RequestParam(required = false) String title,
+												@RequestParam(required = false) String category,
+												@RequestParam(required = false) Boolean in_stock) {
+//		Iterable<Film> filteredFilms;
+//		if (title != null) {
+//			filteredFilms = filmRepository.findByTitleContainingIgnoreCase(title);
+//		}
+//		if (category != null) {
+//
+//		}
+		return filmRepository.findAll();
+
+	}
 
 
 	@PostMapping

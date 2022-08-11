@@ -1,4 +1,4 @@
-package com.starAndShadow.may.sakila.filmcategory;
+package com.starAndShadow.may.sakila.key;
 
 import javax.persistence.*;
 import java.io.Serializable;

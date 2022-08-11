@@ -1,9 +1,6 @@
-package com.starAndShadow.may.sakila.film;
+package com.starAndShadow.may.sakila.model;
 
-import com.starAndShadow.may.sakila.actor.Actor;
-import com.starAndShadow.may.sakila.category.Category;
-import com.starAndShadow.may.sakila.inventory.Inventory;
-import com.starAndShadow.may.sakila.language.Language;
+import com.starAndShadow.may.sakila.model.Inventory;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -68,7 +65,7 @@ public class Film {
     Set<Actor> filmActors;
     @Column(name="last_update")
     private String lastUpdate;
-
+    // constructors
     public Film(String title,
                 String description,
                 Integer languageId,
@@ -82,9 +79,8 @@ public class Film {
         this.rentalRate = rentalRate;
         this.replacementCost = replacementCost;
     }
-
     public Film() {}
-
+    // getters, setters, methods
     public void update(Map<String, Object> changes) {
         changes.forEach(
                 (change, value) -> {
@@ -128,118 +124,91 @@ public class Film {
         LocalDateTime now = LocalDateTime.now();
         this.setLastUpdate(String.valueOf(now));
     }
-
     public Integer getFilmId() {
         return filmId;
     }
-
     public List<Category> getFilmCategory() {
         return filmCategory;
     }
-
     public void setFilmCategory(List<Category> filmCategory) {
         this.filmCategory = filmCategory;
     }
-
     public String getTitle() {
         return title;
     }
-
+    public Set<Inventory> getInventory() { return inventory; }
     public Set<Actor> getActors() {
         return filmActors;
     }
-
     public void setTitle(String title) {
         this.title = title;
     }
-
     public String getDescription() {
         return description;
     }
-
     public void setDescription(String description) {
         this.description = description;
     }
-
     public Integer getReleaseYear() {
         return releaseYear;
     }
-
     public void setReleaseYear(Integer releaseYear) {
         this.releaseYear = releaseYear;
     }
-
     public Language getLanguage() {
         return language;
     }
     public void setLanguageId(Integer languageId) {
         this.languageId = languageId;
     }
-
     public Integer getOriginalLanguageId() {
         return originalLanguageId;
     }
-
     public void setOriginalLanguageId(Integer originalLanguageId) {
         this.originalLanguageId = originalLanguageId;
     }
-
     public Integer getRentalDuration() {
         return rentalDuration;
     }
-
     public void setRentalDuration(Integer rentalDuration) {
         this.rentalDuration = rentalDuration;
     }
-
     public BigDecimal getRentalRate() {
         return rentalRate;
     }
-
     public void setRentalRate(BigDecimal rentalRate) {
         this.rentalRate = rentalRate;
     }
-
     public Integer getLength() {
         return length;
     }
-
     public void setLength(Integer length) {
         this.length = length;
     }
-
     public BigDecimal getReplacementCost() {
         return replacementCost;
     }
-
     public void setReplacementCost(BigDecimal replacementCost) {
         this.replacementCost = replacementCost;
     }
-
     public String getRating() {
         return rating;
     }
-
     public void setRating(String rating) {
         this.rating = rating;
     }
-
     public String getSpecialFeatures() {
         return specialFeatures;
     }
-
     public void setSpecialFeatures(String specialFeatures) {
         this.specialFeatures = specialFeatures;
     }
-
     public String getLastUpdate() {
         return lastUpdate;
     }
-
     public void setLastUpdate(String lastUpdate) {
         this.lastUpdate = lastUpdate;
     }
-
     @Override
     public String toString() {
         return "{" +

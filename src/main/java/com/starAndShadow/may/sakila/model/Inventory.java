@@ -1,7 +1,7 @@
-package com.starAndShadow.may.sakila.inventory;
+package com.starAndShadow.may.sakila.model;
 
-import com.starAndShadow.may.sakila.film.Film;
-import com.starAndShadow.may.sakila.store.Store;
+import com.starAndShadow.may.sakila.model.Film;
+import com.starAndShadow.may.sakila.model.Store;
 
 import javax.persistence.*;
 
@@ -21,6 +21,9 @@ public class Inventory {
     @ManyToOne
     @JoinColumn(name="store")
     private Store store;
+
+    @Column(name="store_id")
+    private int storeId;
     @Column(name="last_update")
     private String lastUpdate;
 
@@ -31,16 +34,12 @@ public class Inventory {
         return inventoryId;
     }
 
-    public Film getFilm() {
-        return film;
-    }
-
-    public Store getStore() {
-        return store;
-    }
-
     public String getLastUpdate() {
         return lastUpdate;
+    }
+
+    public int getStoreId() {
+        return storeId;
     }
 
     @Override

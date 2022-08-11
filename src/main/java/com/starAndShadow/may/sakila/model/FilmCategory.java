@@ -1,4 +1,6 @@
-package com.starAndShadow.may.sakila.filmcategory;
+package com.starAndShadow.may.sakila.model;
+
+import com.starAndShadow.may.sakila.key.FilmCategoryKey;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;

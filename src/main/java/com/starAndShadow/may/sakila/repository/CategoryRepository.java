@@ -1,5 +1,6 @@
-package com.starAndShadow.may.sakila.category;
+package com.starAndShadow.may.sakila.repository;
 
+import com.starAndShadow.may.sakila.model.Category;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 

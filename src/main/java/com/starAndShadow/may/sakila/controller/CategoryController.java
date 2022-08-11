@@ -1,5 +1,7 @@
-package com.starAndShadow.may.sakila.category;
+package com.starAndShadow.may.sakila.controller;
 
+import com.starAndShadow.may.sakila.repository.CategoryRepository;
+import com.starAndShadow.may.sakila.model.Category;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;

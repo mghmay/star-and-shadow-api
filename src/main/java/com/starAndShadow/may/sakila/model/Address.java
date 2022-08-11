@@ -1,4 +1,4 @@
-package com.starAndShadow.may.sakila.address;
+package com.starAndShadow.may.sakila.model;
 
 import javax.persistence.*;
 
