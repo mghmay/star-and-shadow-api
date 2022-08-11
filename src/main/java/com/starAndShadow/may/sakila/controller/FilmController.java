@@ -34,9 +34,9 @@ public class FilmController {
 
 
 	@PostMapping
-	public @ResponseBody ResponseEntity<FilmDTO> addFilm(@RequestBody FilmDTO filmDTO ) {
-		filmService.saveFilm(filmDTO);
-		return new ResponseEntity<FilmDTO>(HttpStatus.CREATED);
+	public @ResponseBody ResponseEntity<Film> addFilm(@RequestBody FilmDTO filmDTO ) {
+		Film film = filmService.saveFilm(filmDTO);
+		return new ResponseEntity<Film>(film, HttpStatus.CREATED);
 	}
 
 	@GetMapping("/search")

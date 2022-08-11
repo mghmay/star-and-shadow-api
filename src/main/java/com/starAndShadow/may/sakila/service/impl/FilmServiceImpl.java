@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import javax.annotation.PostConstruct;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -31,41 +32,41 @@ public class FilmServiceImpl implements FilmService {
     public List<FilmDTO> getAllFilms() {
         return filmRepository.findAll()
                 .stream()
-                .map(this::convertEntityToDto)
+                .map(this::convertEntityToDTO)
                 .collect(Collectors.toList());
     }
-
-//    public List<FilmDTO> getFilmsByCategory(String category) {
-//        return filmRepository.findByFilmCategoryContainingIgnoreCase(category)
-//                .stream()
-//                .map(this::convertEntityToDto)
-//                .collect(Collectors.toList());
-//    }
+    @PostConstruct
+    public List<FilmDTO> getFilmsByCategory(String category) {
+        return filmRepository.findFilmByCategory(category)
+                .stream()
+                .map(this::convertEntityToDTO)
+                .collect(Collectors.toList());
+    }
 
     public List<FilmDTO> getFilmsByTitle(String title) {
         return filmRepository.findByTitleContainingIgnoreCase(title)
                 .stream()
-                .map(this::convertEntityToDto)
+                .map(this::convertEntityToDTO)
                 .collect(Collectors.toList());
     }
 
     public FilmDTO getFilmById(Integer id) {
         if (filmRepository.findById(id).isPresent()) {
             Film film = filmRepository.findById(id).get();
-            return this.convertEntityToDto(film);
+            return this.convertEntityToDTO(film);
         } else {
             throw new ResourceNotFoundException("Not found", "Unable to find resource", id);
         }
     }
 
     public Film saveFilm(FilmDTO filmDTO) {
-        Film film = this.convertDtoToEntity(filmDTO);
+        Film film = this.convertDTOToEntity(filmDTO);
         LocalDateTime now = LocalDateTime.now();
         film.setLastUpdate(String.valueOf(now));
         return filmRepository.save(film);
     };
 
-    private FilmDTO convertEntityToDto(Film film) {
+    private FilmDTO convertEntityToDTO(Film film) {
         FilmDTO filmDTO = new FilmDTO();
         filmDTO.setFilmId(film.getFilmId());
         filmDTO.setLength(film.getLength());
@@ -92,7 +93,7 @@ public class FilmServiceImpl implements FilmService {
                 .toList()));
         return filmDTO;
     }
-    private Film convertDtoToEntity(FilmDTO filmDTO) {  // title, description, languageId, rentalDuration, rentalRate, replacementCost,
+    private Film convertDTOToEntity(FilmDTO filmDTO) {  // title, description, languageId, rentalDuration, rentalRate, replacementCost,
         Film film = new Film();
         film.setTitle(filmDTO.getTitle());
         film.setDescription(filmDTO.getDescription());
