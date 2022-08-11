@@ -6,13 +6,13 @@ import com.starAndShadow.may.sakila.model.Film;
 import com.starAndShadow.may.sakila.service.FilmService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 @CrossOrigin(origins="*")
 @RestController  //handles GET, POST, DELETE, PUT requests
@@ -28,27 +28,15 @@ public class FilmController {
 	}
 
 	@GetMapping
-	public Iterable<FilmDTO> getAllFilmsFilterable(@RequestParam(required = false) String title,
-												   @RequestParam(required = false) String category,
-												   @RequestParam(required = false) Boolean in_stock) {
-//		Iterable<Film> filteredFilms;
-//		if (title != null) {
-//			filteredFilms = filmRepository.findByTitleContainingIgnoreCase(title);
-//		}
-//		if (category != null) {
-//
-//		}
-		return filmService.getAllFilms();
-
+	public ResponseEntity<List<FilmDTO>> getAllFilms() {
+		return ResponseEntity.ok(filmService.getAllFilms());
 	}
 
 
 	@PostMapping
-	@ResponseStatus(HttpStatus.CREATED)
-	public @ResponseBody Film addFilm(@RequestBody Film film ) { // title, description, languageId, rentalDuration, rentalRate, replacementCost,
-		LocalDateTime now = LocalDateTime.now();
-		film.setLastUpdate(String.valueOf(now));
-		return filmRepository.save(film);
+	public @ResponseBody ResponseEntity<FilmDTO> addFilm(@RequestBody FilmDTO filmDTO ) {
+		filmService.saveFilm(filmDTO);
+		return new ResponseEntity<FilmDTO>(HttpStatus.CREATED);
 	}
 
 	@GetMapping("/search")
