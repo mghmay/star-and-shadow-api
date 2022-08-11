@@ -54,7 +54,7 @@ public class Film {
             joinColumns = @JoinColumn(name = "film_id"),
             inverseJoinColumns = @JoinColumn(name = "category_id")
     )
-    List<Category> filmCategory = new ArrayList<>();
+    Set<Category> filmCategory;
 
     @ManyToMany
             @JoinTable(
@@ -127,10 +127,10 @@ public class Film {
     public Integer getFilmId() {
         return filmId;
     }
-    public List<Category> getFilmCategory() {
+    public Set<Category> getFilmCategory() {
         return filmCategory;
     }
-    public void setFilmCategory(List<Category> filmCategory) {
+    public void setFilmCategory(Set<Category> filmCategory) {
         this.filmCategory = filmCategory;
     }
     public String getTitle() {
@@ -140,6 +140,8 @@ public class Film {
     public Set<Actor> getActors() {
         return filmActors;
     }
+
+
     public void setTitle(String title) {
         this.title = title;
     }

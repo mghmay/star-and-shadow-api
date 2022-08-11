@@ -2,10 +2,7 @@ package com.starAndShadow.may.sakila.model;
 
 import com.starAndShadow.may.sakila.key.FilmCategoryKey;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.IdClass;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
