@@ -2,6 +2,8 @@ package com.starAndShadow.may.sakila.film;
 
 import com.starAndShadow.may.sakila.actor.Actor;
 import com.starAndShadow.may.sakila.category.Category;
+import com.starAndShadow.may.sakila.inventory.Inventory;
+import com.starAndShadow.may.sakila.language.Language;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -32,7 +34,8 @@ public class Film {
     @ManyToOne
     @JoinColumn(name="language_id", insertable = false, updatable = false)
     private Language language;
-
+    @OneToMany(mappedBy="film")
+    private Set<Inventory> inventory;
     @Column(name="original_language_id")
     private Integer originalLanguageId;
     @Column(name="rental_duration")

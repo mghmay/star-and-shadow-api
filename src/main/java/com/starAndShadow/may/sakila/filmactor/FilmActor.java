@@ -1,4 +1,4 @@
-package com.starAndShadow.may.sakila.film;
+package com.starAndShadow.may.sakila.filmactor;
 
 import javax.persistence.*;
 import java.io.Serializable;
