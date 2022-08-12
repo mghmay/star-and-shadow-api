@@ -1,6 +1,7 @@
 package com.starAndShadow.may.sakila.model;
 
 import com.starAndShadow.may.sakila.model.Inventory;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -10,6 +11,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+@NoArgsConstructor
 @Entity
 @Table(name="film")
 public class Film {
@@ -31,7 +33,7 @@ public class Film {
     @ManyToOne
     @JoinColumn(name="language_id", insertable = false, updatable = false)
     private Language language;
-    @OneToMany(mappedBy="film")
+    @OneToMany(mappedBy="film", fetch = FetchType.LAZY)
     private Set<Inventory> inventory;
     @Column(name="original_language_id")
     private Integer originalLanguageId;
@@ -79,7 +81,6 @@ public class Film {
         this.rentalRate = rentalRate;
         this.replacementCost = replacementCost;
     }
-    public Film() {}
     // getters, setters, methods
     public Integer getFilmId() {
         return filmId;
@@ -100,6 +101,11 @@ public class Film {
     public void setTitle(String title) {
         this.title = title;
     }
+
+    public Integer getLanguageId() {
+        return languageId;
+    }
+
     public String getDescription() {
         return description;
     }

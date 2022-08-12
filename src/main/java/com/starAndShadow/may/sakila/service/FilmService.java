@@ -4,7 +4,6 @@ import com.starAndShadow.may.sakila.dto.FilmDTO;
 import com.starAndShadow.may.sakila.model.*;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.PostConstruct;
 import java.util.List;
 import java.util.Map;
 
@@ -16,6 +15,5 @@ public interface FilmService {
     Film saveFilm(FilmDTO film);
     List<FilmDTO> getFilmsByCategory(String category);
     FilmDTO updateFilmById(Integer id, Map changes);
-
     void deleteFilmById(Integer id);
 }
