@@ -81,49 +81,6 @@ public class Film {
     }
     public Film() {}
     // getters, setters, methods
-    public void update(Map<String, Object> changes) {
-        changes.forEach(
-                (change, value) -> {
-                    switch (change) {
-                        case "title":
-                            this.setTitle((String) value);
-                            break;
-                        case "description":
-                            this.setDescription((String) value);
-                            break;
-                        case "releaseYear":
-                            this.setReleaseYear((Integer) value);
-                            break;
-                        case "languageId":
-                            this.setLanguageId((Integer) value);
-                            break;
-                        case "originalLanguageId":
-                            this.setOriginalLanguageId((Integer) value);
-                            break;
-                        case "rentalDuration":
-                            this.setRentalDuration((Integer) value);
-                            break;
-                        case "rentalRate":
-                            this.setRentalRate((BigDecimal) value);
-                            break;
-                        case "length":
-                            this.setLength((Integer) value);
-                            break;
-                        case "replacementCost":
-                            this.setReplacementCost((BigDecimal) value);
-                            break;
-                        case "rating":
-                            this.setRating((String) value);
-                            break;
-                        case "specialFeatures":
-                            this.setSpecialFeatures((String) value);
-                            break;
-                    }
-                }
-        );
-        LocalDateTime now = LocalDateTime.now();
-        this.setLastUpdate(String.valueOf(now));
-    }
     public Integer getFilmId() {
         return filmId;
     }
@@ -140,8 +97,6 @@ public class Film {
     public Set<Actor> getActors() {
         return filmActors;
     }
-
-
     public void setTitle(String title) {
         this.title = title;
     }

@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public interface FilmService {
@@ -14,4 +15,7 @@ public interface FilmService {
     FilmDTO getFilmById(Integer id);
     Film saveFilm(FilmDTO film);
     List<FilmDTO> getFilmsByCategory(String category);
+    FilmDTO updateFilmById(Integer id, Map changes);
+
+    void deleteFilmById(Integer id);
 }

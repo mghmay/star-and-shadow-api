@@ -13,8 +13,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import javax.annotation.PostConstruct;
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import static org.springframework.http.HttpStatus.NOT_FOUND;
@@ -35,37 +37,48 @@ public class FilmServiceImpl implements FilmService {
                 .map(this::convertEntityToDTO)
                 .collect(Collectors.toList());
     }
-    @PostConstruct
     public List<FilmDTO> getFilmsByCategory(String category) {
-        return filmRepository.findFilmByCategory(category)
+        return filmRepository.findByFilmCategoryNameContainingIgnoreCase(category)
                 .stream()
                 .map(this::convertEntityToDTO)
                 .collect(Collectors.toList());
     }
-
     public List<FilmDTO> getFilmsByTitle(String title) {
         return filmRepository.findByTitleContainingIgnoreCase(title)
                 .stream()
                 .map(this::convertEntityToDTO)
                 .collect(Collectors.toList());
     }
-
     public FilmDTO getFilmById(Integer id) {
         if (filmRepository.findById(id).isPresent()) {
             Film film = filmRepository.findById(id).get();
             return this.convertEntityToDTO(film);
         } else {
-            throw new ResourceNotFoundException("Not found", "Unable to find resource", id);
+            throw new ResourceNotFoundException("Not found", "Unable to find film by id", id);
         }
     }
-
+    public FilmDTO updateFilmById(Integer id, Map changes) {
+        if (filmRepository.findById(id).isPresent()) {
+            Film film = filmRepository.findById(id).get();
+            this.update(film, changes);
+            return this.convertEntityToDTO(film);
+        } else {
+            throw new ResourceNotFoundException("Not found", "Unable to find film by id", id);
+        }
+    }
+    public void deleteFilmById(Integer id) {
+        if (filmRepository.findById(id).isPresent()) {
+            filmRepository.deleteById(id);
+        } else {
+            throw new ResourceNotFoundException("Not found", "Unable to find film by id", id);
+        }
+    }
     public Film saveFilm(FilmDTO filmDTO) {
         Film film = this.convertDTOToEntity(filmDTO);
         LocalDateTime now = LocalDateTime.now();
         film.setLastUpdate(String.valueOf(now));
         return filmRepository.save(film);
     };
-
     private FilmDTO convertEntityToDTO(Film film) {
         FilmDTO filmDTO = new FilmDTO();
         filmDTO.setFilmId(film.getFilmId());
@@ -85,8 +98,9 @@ public class FilmServiceImpl implements FilmService {
                 .toList());
         filmDTO.setInventory(film.getInventory()
                 .stream()
-                .map(Inventory::getStoreId)
-                .collect(Collectors.groupingBy(e -> e, Collectors.counting())));
+                .map((Inventory inventory) -> inventory.getStore().getAddress().getAddress())
+                .collect(Collectors.groupingBy(e -> e, Collectors.counting()))
+        );
         filmDTO.setCategory(String.valueOf(film.getFilmCategory()
                 .stream()
                 .map(Category::getName)
@@ -103,5 +117,48 @@ public class FilmServiceImpl implements FilmService {
         film.setReplacementCost(filmDTO.getReplacementCost());
 
         return film;
+    }
+    private void update(Film film, Map<String, Object> changes) {
+        changes.forEach(
+            (change, value) -> {
+                switch (change) {
+                    case "title":
+                        film.setTitle((String) value);
+                        break;
+                    case "description":
+                        film.setDescription((String) value);
+                        break;
+                    case "releaseYear":
+                        film.setReleaseYear((Integer) value);
+                        break;
+                    case "languageId":
+                        film.setLanguageId((Integer) value);
+                        break;
+                    case "originalLanguageId":
+                        film.setOriginalLanguageId((Integer) value);
+                        break;
+                    case "rentalDuration":
+                        film.setRentalDuration((Integer) value);
+                        break;
+                    case "rentalRate":
+                        film.setRentalRate((BigDecimal) value);
+                        break;
+                    case "length":
+                        film.setLength((Integer) value);
+                        break;
+                    case "replacementCost":
+                        film.setReplacementCost((BigDecimal) value);
+                        break;
+                    case "rating":
+                        film.setRating((String) value);
+                        break;
+                    case "specialFeatures":
+                        film.setSpecialFeatures((String) value);
+                        break;
+                }
+            }
+        );
+        LocalDateTime now = LocalDateTime.now();
+        film.setLastUpdate(String.valueOf(now));
     }
 }

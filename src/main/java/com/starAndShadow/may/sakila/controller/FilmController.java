@@ -1,6 +1,7 @@
 package com.starAndShadow.may.sakila.controller;
 
 import com.starAndShadow.may.sakila.dto.FilmDTO;
+import com.starAndShadow.may.sakila.exception.ResourceNotFoundException;
 import com.starAndShadow.may.sakila.repository.FilmRepository;
 import com.starAndShadow.may.sakila.model.Film;
 import com.starAndShadow.may.sakila.service.FilmService;
@@ -19,11 +20,8 @@ import java.util.Map;
 @RequestMapping("/films")
 public class FilmController {
 	private FilmService filmService;
-	@Autowired
-	private FilmRepository filmRepository;
 
-	public FilmController(FilmRepository filmRepository, FilmService filmService) {
-		this.filmRepository = filmRepository;
+	public FilmController(FilmService filmService) {
 		this.filmService = filmService;
 	}
 
@@ -32,33 +30,42 @@ public class FilmController {
 		return ResponseEntity.ok(filmService.getAllFilms());
 	}
 
-
 	@PostMapping
 	public @ResponseBody ResponseEntity<Film> addFilm(@RequestBody FilmDTO filmDTO ) {
 		Film film = filmService.saveFilm(filmDTO);
 		return new ResponseEntity<Film>(film, HttpStatus.CREATED);
 	}
 
-	@GetMapping("/search")
-	public List<FilmDTO> searchByTitle(@RequestParam String title) { return filmService.getFilmsByTitle(title); }
+	@GetMapping("/search/title")
+	public ResponseEntity<List<FilmDTO>> searchByTitle(@RequestParam String title) {
+		List<FilmDTO> filmDTOList = filmService.getFilmsByTitle(title);
+		return new ResponseEntity<List<FilmDTO>>(filmDTOList, HttpStatus.OK);
+	}
+
+	@GetMapping("/search/category")
+	public ResponseEntity<List<FilmDTO>> searchByCategory(@RequestParam String category) {
+		List<FilmDTO> filmDTOList = filmService.getFilmsByCategory(category);
+		return new ResponseEntity<List<FilmDTO>>(filmDTOList, HttpStatus.OK);
+	}
 
 	@GetMapping("{id}")
-	public FilmDTO searchById(@PathVariable Integer id) {
-		return filmService.getFilmById(id);
+	public ResponseEntity<FilmDTO> searchById(@PathVariable Integer id) {
+		FilmDTO filmDTOList = filmService.getFilmById(id);
+		return new ResponseEntity<FilmDTO>(filmDTOList, HttpStatus.OK);
 	}
 
 	@PutMapping("{id}")
 	public @ResponseBody
-	Film updateFilmById(@PathVariable Integer id, @RequestBody Map<String, Object> changes) {
-		Film film = filmRepository.findById(id)
-				.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "No film exists with that id."));
-		film.update(changes);
-		return filmRepository.save(film);
+	ResponseEntity<FilmDTO> updateFilmById(@PathVariable Integer id, @RequestBody Map<String, Object> changes) {
+		FilmDTO filmDTO = filmService.updateFilmById(id, changes);
+		return new ResponseEntity<FilmDTO>(filmDTO, HttpStatus.ACCEPTED);
 	}
 
 	@DeleteMapping("{id}")
-	public @ResponseBody void deleteFilmById(@PathVariable Integer id){
-		filmRepository.deleteById(id);
+	public @ResponseBody ResponseEntity<String> deleteFilmById(@PathVariable Integer id){
+		filmService.deleteFilmById(id);
+		String message = "Item deleted!";
+		return new ResponseEntity<String>(message, HttpStatus.ACCEPTED);
 	}
 
 

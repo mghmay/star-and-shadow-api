@@ -37,6 +37,6 @@ public class FilmDTO {
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String lastUpdate;
     private List cast;
-    private Map<Integer, Long> inventory;
+    private Map<Object, Long> inventory;
     private String category;
 }

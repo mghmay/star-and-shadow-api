@@ -19,11 +19,9 @@ public class Inventory {
     @JoinColumn(name="film_id")
     private Film film;
     @ManyToOne
-    @JoinColumn(name="store")
+    @JoinColumn(name="store_id", updatable = false, insertable = false)
     private Store store;
 
-    @Column(name="store_id")
-    private int storeId;
     @Column(name="last_update")
     private String lastUpdate;
 
@@ -38,8 +36,8 @@ public class Inventory {
         return lastUpdate;
     }
 
-    public int getStoreId() {
-        return storeId;
+    public Store getStore() {
+        return store;
     }
 
     @Override

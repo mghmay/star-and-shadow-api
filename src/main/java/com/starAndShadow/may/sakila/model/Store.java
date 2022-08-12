@@ -14,6 +14,11 @@ public class Store {
     //attribute
     @Column(name="address_id")
     private int addressId;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "address_id", referencedColumnName = "address_id", insertable = false, updatable = false)
+    private Address address;
+
     @Column(name="last_update")
     private String lastUpdate;
 
@@ -38,5 +43,9 @@ public class Store {
                 "\"ID\"= \"" + storeId +
                 "\"addressId\"= \"" + addressId +
                 "\"}";
+    }
+
+    public Address getAddress() {
+        return address;
     }
 }

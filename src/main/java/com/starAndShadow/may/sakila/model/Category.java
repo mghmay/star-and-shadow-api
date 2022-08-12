@@ -3,6 +3,7 @@ package com.starAndShadow.may.sakila.model;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.Map;
+import java.util.Set;
 
 @Entity
 @Table(name="category")
@@ -11,13 +12,12 @@ public class Category {
     @Column(name="category_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer categoryId;
-
-    //attribute
-    @Column(name="name")
     private String name;
-
     @Column(name="last_update")
     private String lastUpdate;
+
+    @ManyToMany(mappedBy = "filmCategory")
+    private Set<Film> filmCategory;
 
     public Category(String name) {
         this.name = name;
