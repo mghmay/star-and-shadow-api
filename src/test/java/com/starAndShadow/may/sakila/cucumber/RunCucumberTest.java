@@ -9,15 +9,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ContextConfiguration;
 
 @RunWith(Cucumber.class)
-@CucumberContextConfiguration
-@SpringBootTest(classes = {
-        MainApplication.class,
-        RunCucumberTest.class
-},
-        webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @CucumberOptions(
-        features={"src/test/resources/com.starAndShadow.may.sakila"},
-        plugin = {"pretty"}
+    features={"src/test/resources/features"}
 )
 public class RunCucumberTest{
 }
