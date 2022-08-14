@@ -1,4 +1,4 @@
-package com.starAndShadow.may.sakila.cucumber.steps;
+package com.starAndShadow.may.sakila.cucumber.filmbasics;
 
 import com.starAndShadow.may.sakila.model.Film;
 import com.starAndShadow.may.sakila.repository.FilmRepository;
