@@ -67,6 +67,4 @@ public class FilmController {
 		String message = "Item deleted!";
 		return new ResponseEntity<String>(message, HttpStatus.ACCEPTED);
 	}
-
-
 }

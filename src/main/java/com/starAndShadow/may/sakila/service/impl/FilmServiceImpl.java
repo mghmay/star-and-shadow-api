@@ -15,6 +15,8 @@ import org.springframework.web.server.ResponseStatusException;
 import javax.annotation.PostConstruct;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -96,11 +98,18 @@ public class FilmServiceImpl implements FilmService {
                 .stream()
                 .map(Actor::getFullName)
                 .toList());
-        filmDTO.setInventory(film.getInventory()
-                .stream()
-                .map((Inventory inventory) -> inventory.getStore().getAddress().getAddress())
-                .collect(Collectors.groupingBy(e -> e, Collectors.counting()))
-        );
+        HashMap<String, List<Integer>> addressInventory = new HashMap<>();
+        film.getInventory()
+                .forEach((Inventory inventory) -> {
+                    String address = inventory.getStore().getAddress().getAddress();
+                    int id = inventory.getInventoryId();
+                    if (addressInventory.containsKey(address)) {
+                        addressInventory.get(address).add(id);
+                    } else {
+                        addressInventory.put(address, new ArrayList<>(List.of(id)));
+                    }
+                });
+        filmDTO.setInventory(addressInventory);
         filmDTO.setCategory(String.valueOf(film.getFilmCategory()
                 .stream()
                 .map(Category::getName)
