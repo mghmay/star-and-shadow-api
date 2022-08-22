@@ -4,6 +4,7 @@ import com.starAndShadow.may.sakila.dto.FilmDTO;
 import com.starAndShadow.may.sakila.exception.ResourceNotFoundException;
 import com.starAndShadow.may.sakila.repository.FilmRepository;
 import com.starAndShadow.may.sakila.model.Film;
+import com.starAndShadow.may.sakila.response.ResponseHandler;
 import com.starAndShadow.may.sakila.service.FilmService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -26,45 +27,73 @@ public class FilmController {
 	}
 
 	@GetMapping
-	public ResponseEntity<List<FilmDTO>> getAllFilms() {
-		return ResponseEntity.ok(filmService.getAllFilms());
+	public ResponseEntity<Object> getAllFilms() {
+		try {
+			List<FilmDTO> result = filmService.getAllFilms();
+			return ResponseHandler.generateResponse("Successfully retrieved data!", HttpStatus.OK, result);
+		} catch (Exception e) {
+			return ResponseHandler.generateResponse(e.getMessage(), HttpStatus.MULTI_STATUS, null);
+		}
 	}
 
 	@PostMapping
-	public @ResponseBody ResponseEntity<Film> addFilm(@RequestBody FilmDTO filmDTO ) {
-		Film film = filmService.saveFilm(filmDTO);
-		return new ResponseEntity<Film>(film, HttpStatus.CREATED);
+	public @ResponseBody ResponseEntity<Object> addFilm(@RequestBody FilmDTO filmDTO ) {
+		try {
+			Film result = filmService.saveFilm(filmDTO);
+			return ResponseHandler.generateResponse("Successfully added data!", HttpStatus.OK, result);
+		} catch (Exception e) {
+			return ResponseHandler.generateResponse(e.getMessage(), HttpStatus.MULTI_STATUS, null);
+		}
 	}
 
 	@GetMapping("/search/title")
-	public ResponseEntity<List<FilmDTO>> searchByTitle(@RequestParam String title) {
-		List<FilmDTO> filmDTOList = filmService.getFilmsByTitle(title);
-		return new ResponseEntity<List<FilmDTO>>(filmDTOList, HttpStatus.OK);
+	public ResponseEntity<Object> searchByTitle(@RequestParam String title) {
+		try {
+			List<FilmDTO> result = filmService.getFilmsByTitle(title);
+			return ResponseHandler.generateResponse("Successfully retrieved data!", HttpStatus.OK, result);
+		} catch (Exception e) {
+			return ResponseHandler.generateResponse(e.getMessage(), HttpStatus.MULTI_STATUS, null);
+		}
 	}
 
 	@GetMapping("/search/category")
-	public ResponseEntity<List<FilmDTO>> searchByCategory(@RequestParam String category) {
-		List<FilmDTO> filmDTOList = filmService.getFilmsByCategory(category);
-		return new ResponseEntity<List<FilmDTO>>(filmDTOList, HttpStatus.OK);
+	public ResponseEntity<Object> searchByCategory(@RequestParam String category) {
+		try {
+			List<FilmDTO> result = filmService.getFilmsByCategory(category);
+			return ResponseHandler.generateResponse("Successfully retrieved data!", HttpStatus.OK, result);
+		} catch (Exception e) {
+			return ResponseHandler.generateResponse(e.getMessage(), HttpStatus.MULTI_STATUS, null);
+		}
 	}
 
 	@GetMapping("{id}")
-	public ResponseEntity<FilmDTO> searchById(@PathVariable Integer id) {
-		FilmDTO filmDTOList = filmService.getFilmById(id);
-		return new ResponseEntity<FilmDTO>(filmDTOList, HttpStatus.OK);
+	public ResponseEntity<Object> searchById(@PathVariable Integer id) {
+		try {
+			FilmDTO result = filmService.getFilmById(id);
+			return ResponseHandler.generateResponse("Successfully retrieved data!", HttpStatus.OK, result);
+		} catch (Exception e) {
+			return ResponseHandler.generateResponse(e.getMessage(), HttpStatus.MULTI_STATUS, null);
+		}
 	}
 
 	@PutMapping("{id}")
 	public @ResponseBody
-	ResponseEntity<FilmDTO> updateFilmById(@PathVariable Integer id, @RequestBody Map<String, Object> changes) {
-		FilmDTO filmDTO = filmService.updateFilmById(id, changes);
-		return new ResponseEntity<FilmDTO>(filmDTO, HttpStatus.ACCEPTED);
+	ResponseEntity<Object> updateFilmById(@PathVariable Integer id, @RequestBody Map<String, Object> changes) {
+		try {
+			FilmDTO result = filmService.updateFilmById(id, changes);
+			return ResponseHandler.generateResponse("Successfully updated data!", HttpStatus.OK, result);
+		} catch (Exception e) {
+			return ResponseHandler.generateResponse(e.getMessage(), HttpStatus.MULTI_STATUS, null);
+		}
 	}
 
 	@DeleteMapping("{id}")
-	public @ResponseBody ResponseEntity<String> deleteFilmById(@PathVariable Integer id){
-		filmService.deleteFilmById(id);
-		String message = "Item deleted!";
-		return new ResponseEntity<String>(message, HttpStatus.ACCEPTED);
+	public @ResponseBody ResponseEntity<Object> deleteFilmById(@PathVariable Integer id){
+		try {
+			filmService.deleteFilmById(id);
+			return ResponseHandler.generateResponse("Successfully deleted data!", HttpStatus.OK, null);
+		} catch (Exception e) {
+			return ResponseHandler.generateResponse(e.getMessage(), HttpStatus.MULTI_STATUS, null);
+		}
 	}
 }

@@ -1,5 +1,10 @@
 package com.starAndShadow.may.sakila.service.impl;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.reflect.TypeToken;
 import com.starAndShadow.may.sakila.dto.FilmDTO;
 import com.starAndShadow.may.sakila.exception.ResourceNotFoundException;
 import com.starAndShadow.may.sakila.model.Actor;
@@ -32,7 +37,6 @@ public class FilmServiceImpl implements FilmService {
         super();
         this.filmRepository = filmRepository;
     }
-
     public List<FilmDTO> getAllFilms() {
         return filmRepository.findAll()
                 .stream()
@@ -127,6 +131,7 @@ public class FilmServiceImpl implements FilmService {
 
         return film;
     }
+
     private void update(Film film, Map<String, Object> changes) {
         changes.forEach(
             (change, value) -> {
