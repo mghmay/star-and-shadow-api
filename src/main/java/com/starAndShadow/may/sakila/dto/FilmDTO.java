@@ -38,5 +38,5 @@ public class FilmDTO {
     private String lastUpdate;
     private List cast;
     private Map<String, List<Integer>> inventory;
-    private String category;
+    private List category;
 }

@@ -114,10 +114,10 @@ public class FilmServiceImpl implements FilmService {
                     }
                 });
         filmDTO.setInventory(addressInventory);
-        filmDTO.setCategory(String.valueOf(film.getFilmCategory()
+        filmDTO.setCategory(film.getFilmCategory()
                 .stream()
                 .map(Category::getName)
-                .toList()));
+                .toList());
         return filmDTO;
     }
     private Film convertDTOToEntity(FilmDTO filmDTO) {  // title, description, languageId, rentalDuration, rentalRate, replacementCost,
