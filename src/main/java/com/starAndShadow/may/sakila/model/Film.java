@@ -4,6 +4,7 @@ import com.starAndShadow.may.sakila.model.Inventory;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.io.InputStream;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;

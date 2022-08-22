@@ -13,6 +13,7 @@ import com.starAndShadow.may.sakila.model.Film;
 import com.starAndShadow.may.sakila.model.Inventory;
 import com.starAndShadow.may.sakila.repository.FilmRepository;
 import com.starAndShadow.may.sakila.service.FilmService;
+import com.sun.istack.Nullable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -20,10 +21,7 @@ import org.springframework.web.server.ResponseStatusException;
 import javax.annotation.PostConstruct;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import static org.springframework.http.HttpStatus.NOT_FOUND;
@@ -67,6 +65,7 @@ public class FilmServiceImpl implements FilmService {
         if (filmRepository.findById(id).isPresent()) {
             Film film = filmRepository.findById(id).get();
             this.update(film, changes);
+            filmRepository.save(film);
             return this.convertEntityToDTO(film);
         } else {
             throw new ResourceNotFoundException("Not found", "Unable to find film by id", id);
@@ -97,7 +96,12 @@ public class FilmServiceImpl implements FilmService {
         filmDTO.setReleaseYear(film.getReleaseYear());
         filmDTO.setDescription(film.getDescription());
         filmDTO.setLength(film.getLength());
-        filmDTO.setSpecialFeatures(film.getSpecialFeatures());
+        if (film.getSpecialFeatures() != null) {
+            String[] features = film.getSpecialFeatures().split(",");
+            filmDTO.setSpecialFeatures(features);
+        } else {
+            filmDTO.setSpecialFeatures(new String[0]);
+        }
         filmDTO.setCast(film.getActors()
                 .stream()
                 .map(Actor::getFullName)

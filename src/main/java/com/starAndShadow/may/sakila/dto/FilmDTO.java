@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
+
+import java.io.InputStream;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
@@ -33,7 +35,7 @@ public class FilmDTO {
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private BigDecimal replacementCost;
     private String rating;
-    private String specialFeatures;
+    private String[] specialFeatures;
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String lastUpdate;
     private List cast;
