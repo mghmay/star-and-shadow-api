@@ -52,22 +52,26 @@ public class FilmServiceImpl implements FilmService {
                 .collect(Collectors.toList());
     }
     public FilmDTO getFilmById(Integer id) {
-        if (filmRepository.findById(id).isPresent()) {
-            Film film = filmRepository.findById(id).get();
-            return this.convertEntityToDTO(film);
+        Optional<Film> response = filmRepository.findById(id);
+        Film film;
+        if (response.isPresent()) {
+            film = response.get();
         } else {
             throw new ResourceNotFoundException("Not found", "Unable to find film by id", id);
         }
+        return this.convertEntityToDTO(film);
     }
     public FilmDTO updateFilmById(Integer id, Map changes) {
-        if (filmRepository.findById(id).isPresent()) {
-            Film film = filmRepository.findById(id).get();
-            this.update(film, changes);
-            filmRepository.save(film);
-            return this.convertEntityToDTO(film);
+        Optional<Film> response = filmRepository.findById(id);
+        Film film;
+        if (response.isPresent()) {
+            film = response.get();
         } else {
             throw new ResourceNotFoundException("Not found", "Unable to find film by id", id);
         }
+        this.update(film, changes);
+        filmRepository.save(film);
+        return this.convertEntityToDTO(film);
     }
     public void deleteFilmById(Integer id) {
         if (filmRepository.findById(id).isPresent()) {
