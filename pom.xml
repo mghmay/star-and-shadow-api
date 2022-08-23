@@ -139,8 +139,8 @@
 				<version>0.8.8</version>
 				<configuration>
 					<includes>
-						<include>com/starAndShadow/may/sakila/model/**/*.class</include>
-						<include>com/starAndShadow/may/sakila/dto/**/*.class</include>
+						<include>com/starAndShadow/may/sakila/model/**</include>
+						<include>com/starAndShadow/may/sakila/dto/**</include>
 					</includes>
 				</configuration>
 				<executions>
