@@ -139,12 +139,12 @@
 				<version>0.8.8</version>
 				<configuration>
 					<excludes>
-						<exclude>com/starAndShadow/may/sakila/controller/*.java</exclude>
-						<exclude>com/starAndShadow/may/sakila/config/*.java</exclude>
-						<exclude>com/starAndShadow/may/sakila/exception/*.java</exclude>
-						<exclude>com/starAndShadow/may/sakila/service/*.java</exclude>
-						<exclude>com/starAndShadow/may/sakila/response/*.java</exclude>
-						<exclude>com/starAndShadow/may/sakila/repository/*.java</exclude>
+						<exclude>**/controller/*</exclude>
+						<exclude>**/config/*</exclude>
+						<exclude>**/exception/*</exclude>
+						<exclude>**/service/*</exclude>
+						<exclude>**/response/*</exclude>
+						<exclude>**/repository/*</exclude>
 					</excludes>
 				</configuration>
 				<executions>
