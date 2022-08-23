@@ -6,7 +6,11 @@ import com.starAndShadow.may.sakila.model.Film;
 import com.starAndShadow.may.sakila.model.Rental;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public interface RentalService {
     Rental saveRental(RentalDTO rental);
+
+    List<RentalDTO> getAllRentals();
 }

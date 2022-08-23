@@ -14,12 +14,20 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
 public class RentalServiceImpl implements RentalService {
     @Autowired
     private RentalRepository rentalRepository;
+
+    public List<RentalDTO> getAllRentals() {
+        return rentalRepository.findAll()
+                .stream()
+                .map(this::convertEntityToDTO)
+                .collect(Collectors.toList());
+    }
 
     public Rental saveRental(RentalDTO rentalDTO) {
         Rental rental = this.convertDTOToEntity(rentalDTO);
@@ -35,5 +43,14 @@ public class RentalServiceImpl implements RentalService {
         rental.setCustomerId(rentalDTO.getCustomerId());
         rental.setStaffId(rentalDTO.getStaffId());
         return rental;
+    }
+
+    private RentalDTO convertEntityToDTO(Rental rental) {  // title, description, languageId, rentalDuration, rentalRate, replacementCost,
+        RentalDTO rentalDTO = new RentalDTO();
+        rentalDTO.setRentalDate(rental.getRentalDate());
+        rentalDTO.setInventoryId(rental.getInventoryId());
+        rentalDTO.setCustomerId(rental.getCustomerId());
+        rentalDTO.setStaffId(rental.getStaffId());
+        return rentalDTO;
     }
 }

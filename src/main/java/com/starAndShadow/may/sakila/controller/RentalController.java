@@ -17,13 +17,21 @@ import java.util.List;
 
 @CrossOrigin(origins="*")
 @RestController  //handles GET, POST, DELETE, PUT requests
-@RequestMapping("/rental")
+@RequestMapping("/rentals")
 @AllArgsConstructor
 @NoArgsConstructor
 public class RentalController {
     @Autowired
     private RentalService rentalService;
-
+    @GetMapping
+    public ResponseEntity<Object> getAllRentals() {
+        try {
+            List<RentalDTO> result = rentalService.getAllRentals();
+            return ResponseHandler.generateResponse("Successfully retrieved data!", HttpStatus.OK, result);
+        } catch (Exception e) {
+            return ResponseHandler.generateResponse(e.getMessage(), HttpStatus.MULTI_STATUS, null);
+        }
+    }
     @PostMapping
     public @ResponseBody ResponseEntity<Object> addRental(@RequestBody RentalDTO rentalDTO ) {
         try {
