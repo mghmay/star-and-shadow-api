@@ -1,7 +1,7 @@
-Feature: Find an actor
-  Actors can be found by their name
+Feature: A user can get actor details
 
-  Scenario: An actor is found by their name
-    Given the actor exists in the database
-    When I search for the actor
-    Then the Actor is returned
+
+  Scenario: Get the actor's name
+    Given there is an actor called Bob Willis
+    When I ask for the actor by name
+    Then I get the actor

@@ -1,23 +1,33 @@
 package com.starAndShadow.may.sakila.actor;
 
+import com.starAndShadow.may.sakila.model.Actor;
+import com.starAndShadow.may.sakila.model.Film;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import org.junit.jupiter.api.Assertions;
+
+import java.util.HashSet;
+import java.util.Set;
 
 import static org.junit.Assert.assertEquals;
 
 public class ActorStepDefs {
-    @Given("the actor exists in the database")
-    public void theActorExistsInTheDatabase() {
-
+    Actor actor;
+    String fullName;
+    @Given("there is an actor called Bob Willis")
+    public void thereIsAnActorCalledBobWillis() {
+        Set<Film> films = new HashSet<>();
+        actor = new Actor(1, films, "Bob", "Willis", "Bob Willis", "2022-02-23");;
     }
 
-    @When("I search for the actor")
-    public void iSearchForTheActor() {
+    @When("I ask for the actor by name")
+    public void iAskForTheActorByName() {
+        fullName = actor.getFullName();
     }
 
-    @Then("the Actor is returned")
-    public void theActorIsReturned() {
-        assertEquals(17, 17);
+    @Then("I get the actor")
+    public void iGetTheActor() {
+        Assertions.assertEquals("Bob Willis", actor.getFullName(), "gets the full name of the actor.");
     }
 }
