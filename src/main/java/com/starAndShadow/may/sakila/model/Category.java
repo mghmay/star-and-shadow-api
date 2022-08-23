@@ -1,5 +1,6 @@
 package com.starAndShadow.may.sakila.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -8,6 +9,7 @@ import java.time.LocalDateTime;
 import java.util.Map;
 import java.util.Set;
 @NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Getter
 @Table(name="category")

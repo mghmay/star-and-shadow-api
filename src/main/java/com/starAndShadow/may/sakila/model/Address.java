@@ -1,10 +1,12 @@
 package com.starAndShadow.may.sakila.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 @NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Getter
 @Table(name="address")

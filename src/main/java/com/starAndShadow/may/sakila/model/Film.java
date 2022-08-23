@@ -1,6 +1,7 @@
 package com.starAndShadow.may.sakila.model;
 
 import com.starAndShadow.may.sakila.model.Inventory;
+import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
@@ -13,6 +14,7 @@ import java.util.Map;
 import java.util.Set;
 
 @NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name="film")
 public class Film {
@@ -82,6 +84,8 @@ public class Film {
         this.rentalRate = rentalRate;
         this.replacementCost = replacementCost;
     }
+
+
     // getters, setters, methods
     public Integer getFilmId() {
         return filmId;

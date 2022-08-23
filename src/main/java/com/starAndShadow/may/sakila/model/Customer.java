@@ -1,5 +1,6 @@
 package com.starAndShadow.may.sakila.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Formula;
@@ -8,6 +9,7 @@ import javax.persistence.*;
 import java.util.Set;
 
 @NoArgsConstructor
+@AllArgsConstructor
 @Getter
 @Entity
 @Table(name="customer")

@@ -1,5 +1,6 @@
 package com.starAndShadow.may.sakila.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Formula;
@@ -10,6 +11,7 @@ import java.util.Map;
 import java.util.Set;
 
 @NoArgsConstructor
+@AllArgsConstructor
 @Getter
 @Entity
 @Table(name="actor")
