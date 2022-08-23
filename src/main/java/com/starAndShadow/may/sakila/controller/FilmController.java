@@ -1,30 +1,26 @@
 package com.starAndShadow.may.sakila.controller;
 
 import com.starAndShadow.may.sakila.dto.FilmDTO;
-import com.starAndShadow.may.sakila.exception.ResourceNotFoundException;
-import com.starAndShadow.may.sakila.repository.FilmRepository;
 import com.starAndShadow.may.sakila.model.Film;
 import com.starAndShadow.may.sakila.response.ResponseHandler;
 import com.starAndShadow.may.sakila.service.FilmService;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.server.ResponseStatusException;
-
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 
 @CrossOrigin(origins="*")
 @RestController  //handles GET, POST, DELETE, PUT requests
 @RequestMapping("/films")
+@AllArgsConstructor
+@NoArgsConstructor
 public class FilmController {
+	@Autowired
 	private FilmService filmService;
-
-	public FilmController(FilmService filmService) {
-		this.filmService = filmService;
-	}
 
 	@GetMapping
 	public ResponseEntity<Object> getAllFilms() {

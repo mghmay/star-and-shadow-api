@@ -14,6 +14,7 @@ import com.starAndShadow.may.sakila.model.Inventory;
 import com.starAndShadow.may.sakila.repository.FilmRepository;
 import com.starAndShadow.may.sakila.service.FilmService;
 import com.sun.istack.Nullable;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -27,14 +28,11 @@ import java.util.stream.Collectors;
 import static org.springframework.http.HttpStatus.NOT_FOUND;
 
 @Service
+@AllArgsConstructor
 public class FilmServiceImpl implements FilmService {
     @Autowired
     private FilmRepository filmRepository;
 
-    public FilmServiceImpl(FilmRepository filmRepository) {
-        super();
-        this.filmRepository = filmRepository;
-    }
     public List<FilmDTO> getAllFilms() {
         return filmRepository.findAll()
                 .stream()

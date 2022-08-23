@@ -6,6 +6,7 @@ import com.starAndShadow.may.sakila.model.*;
 import com.starAndShadow.may.sakila.repository.FilmRepository;
 import com.starAndShadow.may.sakila.repository.RentalRepository;
 import com.starAndShadow.may.sakila.service.RentalService;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,15 +16,11 @@ import java.util.HashMap;
 import java.util.List;
 
 @Service
+@AllArgsConstructor
 public class RentalServiceImpl implements RentalService {
-
     @Autowired
     private RentalRepository rentalRepository;
 
-    public RentalServiceImpl(RentalRepository rentalRepository) {
-        super();
-        this.rentalRepository = rentalRepository;
-    }
     public Rental saveRental(RentalDTO rentalDTO) {
         Rental rental = this.convertDTOToEntity(rentalDTO);
         LocalDateTime now = LocalDateTime.now();
