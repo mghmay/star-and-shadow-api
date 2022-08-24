@@ -11,17 +11,20 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 import java.util.List;
 import org.springframework.data.domain.Pageable;
 
-public interface FilmRepository extends PagingAndSortingRepository<Film,Integer> {
+public interface FilmRepository extends JpaRepository<Film,Integer> {
 
     @Query("select f from Film f where upper(f.title) like upper(concat('%', ?1, '%'))")
-    List<Film> findByTitleContainingIgnoreCase(String title);
-
-
+    Page<Film> findByTitleContainingIgnoreCase(String title, Pageable paging);
 
     @Query("""
             select f from Film f inner join f.category filmCategory
             where upper(filmCategory.name) like upper(concat('%', ?1, '%'))""")
     Page<Film> findByFilmCategoryNameContainingIgnoreCase(String category, Pageable paging);
+
+    @Query("""
+            select f from Film f inner join f.category filmCategory
+            where upper(filmCategory.name) like upper(concat('%', ?1, '%')) and upper(f.title) like upper(concat('%', ?2, '%'))""")
+    Page<Film> findByTitleAndFilmCategoryNameContainingIgnoreCase(String category, String title, Pageable paging);
 
 }
 

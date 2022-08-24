@@ -1,6 +1,7 @@
 package com.starAndShadow.may.sakila.controller;
 
 import com.starAndShadow.may.sakila.dto.CustomerDTO;
+import com.starAndShadow.may.sakila.exception.ResourceNotFoundException;
 import com.starAndShadow.may.sakila.response.ResponseHandler;
 import com.starAndShadow.may.sakila.service.CustomerService;
 import lombok.AllArgsConstructor;
@@ -32,8 +33,10 @@ public class CustomerController {
         try {
             List<CustomerDTO> result = customerService.getAllCustomers();
             return ResponseHandler.generateResponse("Successfully retrieved data!", HttpStatus.OK, result);
+        } catch (ResourceNotFoundException e) {
+            return ResponseHandler.generateResponse(e.getMessage(), HttpStatus.NOT_FOUND, null);
         } catch (Exception e) {
-            return ResponseHandler.generateResponse(e.getMessage(), HttpStatus.MULTI_STATUS, null);
+            return ResponseHandler.generateResponse(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR, null);
         }
     }
 }

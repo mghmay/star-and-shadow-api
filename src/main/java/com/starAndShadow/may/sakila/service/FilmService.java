@@ -10,8 +10,8 @@ import java.util.Map;
 
 @Service
 public interface FilmService {
-    List<FilmDTO> getAllFilms(String category, Integer pageNo, Integer pageSize, String sortBy);
-    List<FilmDTO> getFilmsByTitle(String title);
+    List<FilmDTO> getAllFilms(String category, String title, Integer pageNo, Integer pageSize, String sortBy);
+    List<FilmDTO> getFilmsByTitle(String title, Integer pageNo, Integer pageSize, String sortBy);
     FilmDTO getFilmById(Integer id);
     Film saveFilm(FilmDTO film);
 //    List<FilmDTO> getFilmsByCategory(String category);

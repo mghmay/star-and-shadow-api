@@ -37,11 +37,17 @@ public class FilmServiceImpl implements FilmService {
     @Autowired
     private FilmRepository filmRepository;
 
-    public List<FilmDTO> getAllFilms(String category, Integer pageNo, Integer pageSize, String sortBy) throws ResourceNotFoundException {
+    public List<FilmDTO> getAllFilms(String category,
+                                     String title,
+                                     Integer pageNo,
+                                     Integer pageSize,
+                                     String sortBy) throws ResourceNotFoundException {
         Pageable paging = PageRequest.of(pageNo, pageSize, Sort.by(sortBy));
 
         Page<Film> pagedResult;
-        if (category != "") {
+        if (category != "" && title != "") {
+            pagedResult = filmRepository.findByTitleAndFilmCategoryNameContainingIgnoreCase(category, title, paging);
+        } else if (category != "") {
             pagedResult = filmRepository.findByFilmCategoryNameContainingIgnoreCase(category, paging);
         } else {
             pagedResult = filmRepository.findAll(paging);
@@ -54,14 +60,26 @@ public class FilmServiceImpl implements FilmService {
                     .map(this::convertEntityToDTO)
                     .collect(Collectors.toList());
         } else {
-            throw new ResourceNotFoundException("Not found", "Unable to find film by id", pagedResult);
+            throw new ResourceNotFoundException("films", "category and title", String.format("%s, %s", category, title));
         }
     }
-    public List<FilmDTO> getFilmsByTitle(String title) {
-        return filmRepository.findByTitleContainingIgnoreCase(title)
-                .stream()
-                .map(this::convertEntityToDTO)
-                .collect(Collectors.toList());
+
+    public List<FilmDTO> getFilmsByTitle(String title,
+                                         Integer pageNo,
+                                         Integer pageSize,
+                                         String sortBy) throws ResourceNotFoundException {
+        Pageable paging = PageRequest.of(pageNo, pageSize, Sort.by(sortBy));
+        Page<Film> pagedResult = filmRepository.findByTitleContainingIgnoreCase(title, paging);
+
+        if(pagedResult.hasContent()) {
+            return pagedResult
+                    .getContent()
+                    .stream()
+                    .map(this::convertEntityToDTO)
+                    .collect(Collectors.toList());
+        } else {
+            throw new ResourceNotFoundException("films", "title", title);
+        }
     }
     public FilmDTO getFilmById(Integer id) throws ResourceNotFoundException {
         Optional<Film> response = filmRepository.findById(id);
@@ -69,7 +87,7 @@ public class FilmServiceImpl implements FilmService {
         if (response.isPresent()) {
             film = response.get();
         } else {
-            throw new ResourceNotFoundException("Not found", "Unable to find film by id", id);
+            throw new ResourceNotFoundException("films", "id", id);
         }
         return this.convertEntityToDTO(film);
     }
@@ -79,18 +97,21 @@ public class FilmServiceImpl implements FilmService {
         if (response.isPresent()) {
             film = response.get();
         } else {
-            throw new ResourceNotFoundException("Not found", "Unable to find film by id", id);
+            throw new ResourceNotFoundException("films", "id", id);
         }
         this.update(film, changes);
         filmRepository.save(film);
         return this.convertEntityToDTO(film);
     }
     public void deleteFilmById(Integer id) throws ResourceNotFoundException {
-        if (filmRepository.findById(id).isPresent()) {
-            filmRepository.deleteById(id);
+        Optional<Film> response = filmRepository.findById(id);
+        Film film;
+        if (response.isPresent()) {
+            film = response.get();
         } else {
-            throw new ResourceNotFoundException("Not found", "Unable to find film by id", id);
+            throw new ResourceNotFoundException("films", "id", id);
         }
+        filmRepository.deleteById(film.getFilmId());
     }
     public Film saveFilm(FilmDTO filmDTO) {
         Film film = this.convertDTOToEntity(filmDTO);
@@ -149,7 +170,6 @@ public class FilmServiceImpl implements FilmService {
 
         return film;
     }
-
     private void update(Film film, Map<String, Object> changes) {
         changes.forEach(
             (change, value) -> {

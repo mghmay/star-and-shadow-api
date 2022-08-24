@@ -2,6 +2,7 @@ package com.starAndShadow.may.sakila.controller;
 
 import com.starAndShadow.may.sakila.dto.FilmDTO;
 import com.starAndShadow.may.sakila.dto.RentalDTO;
+import com.starAndShadow.may.sakila.exception.ResourceNotFoundException;
 import com.starAndShadow.may.sakila.model.Film;
 import com.starAndShadow.may.sakila.model.Rental;
 import com.starAndShadow.may.sakila.response.ResponseHandler;
@@ -28,8 +29,10 @@ public class RentalController {
         try {
             List<RentalDTO> result = rentalService.getAllRentals();
             return ResponseHandler.generateResponse("Successfully retrieved data!", HttpStatus.OK, result);
+        } catch (ResourceNotFoundException e) {
+            return ResponseHandler.generateResponse(e.getMessage(), HttpStatus.NOT_FOUND, null);
         } catch (Exception e) {
-            return ResponseHandler.generateResponse(e.getMessage(), HttpStatus.MULTI_STATUS, null);
+            return ResponseHandler.generateResponse(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR, null);
         }
     }
     @PostMapping
@@ -37,8 +40,10 @@ public class RentalController {
         try {
             Rental result = rentalService.saveRental(rentalDTO);
             return ResponseHandler.generateResponse("Successfully retrieved data!", HttpStatus.OK, result);
+        } catch (ResourceNotFoundException e) {
+            return ResponseHandler.generateResponse(e.getMessage(), HttpStatus.NOT_FOUND, null);
         } catch (Exception e) {
-            return ResponseHandler.generateResponse(e.getMessage(), HttpStatus.MULTI_STATUS, null);
+            return ResponseHandler.generateResponse(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR, null);
         }
     }
 }
