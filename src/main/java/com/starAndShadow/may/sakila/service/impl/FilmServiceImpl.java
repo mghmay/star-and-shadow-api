@@ -16,6 +16,10 @@ import com.starAndShadow.may.sakila.service.FilmService;
 import com.sun.istack.Nullable;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -33,11 +37,26 @@ public class FilmServiceImpl implements FilmService {
     @Autowired
     private FilmRepository filmRepository;
 
-    public List<FilmDTO> getAllFilms() {
-        return filmRepository.findAll()
-                .stream()
-                .map(this::convertEntityToDTO)
-                .collect(Collectors.toList());
+//    public List<FilmDTO> getAllFilms() {
+//        return filmRepository.findAll()
+//                .stream()
+//                .map(this::convertEntityToDTO)
+//                .collect(Collectors.toList());
+//    }
+    public List<FilmDTO> getAllFilms(Integer pageNo, Integer pageSize, String sortBy) {
+        Pageable paging = PageRequest.of(pageNo, pageSize, Sort.by(sortBy));
+
+        Page<Film> pagedResult = filmRepository.findAll(paging);
+
+        if(pagedResult.hasContent()) {
+            return pagedResult
+                    .getContent()
+                    .stream()
+                    .map(this::convertEntityToDTO)
+                    .collect(Collectors.toList());
+        } else {
+            return new ArrayList<>();
+        }
     }
     public List<FilmDTO> getFilmsByCategory(String category) {
         return filmRepository.findByFilmCategoryNameContainingIgnoreCase(category)

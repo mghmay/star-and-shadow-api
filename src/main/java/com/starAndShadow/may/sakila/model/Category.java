@@ -21,7 +21,7 @@ public class Category {
     private String name;
     @Column(name="last_update")
     private String lastUpdate;
-    @ManyToMany(mappedBy = "filmCategory")
+    @ManyToMany(mappedBy = "category")
     private Set<Film> filmCategory;
 }
 

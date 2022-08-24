@@ -23,9 +23,11 @@ public class FilmController {
 	private FilmService filmService;
 
 	@GetMapping
-	public ResponseEntity<Object> getAllFilms() {
+	public ResponseEntity<Object> getAllFilms(@RequestParam(defaultValue = "0") Integer pageNo,
+											  @RequestParam(defaultValue = "20") Integer pageSize,
+											  @RequestParam(defaultValue = "id") String sortBy) {
 		try {
-			List<FilmDTO> result = filmService.getAllFilms();
+			List<FilmDTO> result = filmService.getAllFilms(pageNo, pageSize, sortBy);
 			return ResponseHandler.generateResponse("Successfully retrieved data!", HttpStatus.OK, result);
 		} catch (Exception e) {
 			return ResponseHandler.generateResponse(e.getMessage(), HttpStatus.MULTI_STATUS, null);

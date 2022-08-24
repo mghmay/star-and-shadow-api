@@ -22,7 +22,7 @@ public class Film {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="film_id")
-    private Integer filmId;
+    private Integer id;
 
     //attribute
     @Column(name="title")
@@ -59,7 +59,7 @@ public class Film {
             joinColumns = @JoinColumn(name = "film_id"),
             inverseJoinColumns = @JoinColumn(name = "category_id")
     )
-    Set<Category> filmCategory;
+    Set<Category> category;
 
     @ManyToMany
             @JoinTable(
@@ -88,13 +88,13 @@ public class Film {
 
     // getters, setters, methods
     public Integer getFilmId() {
-        return filmId;
+        return id;
     }
     public Set<Category> getFilmCategory() {
-        return filmCategory;
+        return category;
     }
     public void setFilmCategory(Set<Category> filmCategory) {
-        this.filmCategory = filmCategory;
+        this.category = filmCategory;
     }
     public String getTitle() {
         return title;
@@ -180,7 +180,7 @@ public class Film {
     @Override
     public String toString() {
         return "{" +
-                "\"ID\"= \"" + filmId +
+                "\"ID\"= \"" + id +
                 "\"title\"= \"" + title +
                 "\", \"year\"=\"" + releaseYear +
                 "\", \"description\"=\"" + description +

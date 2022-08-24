@@ -1,12 +1,14 @@
 package com.starAndShadow.may.sakila.repository;
 
 import com.starAndShadow.may.sakila.model.Film;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.PagingAndSortingRepository;
 
 import java.util.List;
 
-public interface FilmRepository extends CrudRepository<Film,Integer> {
+public interface FilmRepository extends PagingAndSortingRepository<Film,Integer> {
 
     @Query("select f from Film f where upper(f.title) like upper(concat('%', ?1, '%'))")
     List<Film> findByTitleContainingIgnoreCase(String title);
@@ -14,12 +16,9 @@ public interface FilmRepository extends CrudRepository<Film,Integer> {
 
 
     @Query("""
-            select f from Film f inner join f.filmCategory filmCategory
+            select f from Film f inner join f.category filmCategory
             where upper(filmCategory.name) like upper(concat('%', ?1, '%'))""")
     List<Film> findByFilmCategoryNameContainingIgnoreCase(String category);
 
-
-    @Override
-    List<Film> findAll();
 }
 
