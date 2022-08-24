@@ -44,14 +44,7 @@ public class FilmServiceImpl implements FilmService {
                                      String sortBy) throws ResourceNotFoundException {
         Pageable paging = PageRequest.of(pageNo, pageSize, Sort.by(sortBy));
 
-        Page<Film> pagedResult;
-        if (category != "" && title != "") {
-            pagedResult = filmRepository.findByTitleAndFilmCategoryNameContainingIgnoreCase(category, title, paging);
-        } else if (category != "") {
-            pagedResult = filmRepository.findByFilmCategoryNameContainingIgnoreCase(category, paging);
-        } else {
-            pagedResult = filmRepository.findAll(paging);
-        }
+        Page<Film> pagedResult = filmRepository.findByTitleAndFilmCategoryNameContainingIgnoreCase(category, title, paging);
 
         if(pagedResult.hasContent()) {
             return pagedResult
@@ -64,23 +57,6 @@ public class FilmServiceImpl implements FilmService {
         }
     }
 
-    public List<FilmDTO> getFilmsByTitle(String title,
-                                         Integer pageNo,
-                                         Integer pageSize,
-                                         String sortBy) throws ResourceNotFoundException {
-        Pageable paging = PageRequest.of(pageNo, pageSize, Sort.by(sortBy));
-        Page<Film> pagedResult = filmRepository.findByTitleContainingIgnoreCase(title, paging);
-
-        if(pagedResult.hasContent()) {
-            return pagedResult
-                    .getContent()
-                    .stream()
-                    .map(this::convertEntityToDTO)
-                    .collect(Collectors.toList());
-        } else {
-            throw new ResourceNotFoundException("films", "title", title);
-        }
-    }
     public FilmDTO getFilmById(Integer id) throws ResourceNotFoundException {
         Optional<Film> response = filmRepository.findById(id);
         Film film;

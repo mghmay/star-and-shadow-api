@@ -51,21 +51,6 @@ public class FilmController {
 		}
 	}
 
-	@GetMapping("/search/title")
-	public ResponseEntity<Object> searchByTitle(@RequestParam String title,
-												@RequestParam(defaultValue = "20") Integer pageSize,
-												@RequestParam(defaultValue = "id") String sortBy,
-												@RequestParam(defaultValue = "0") Integer pageNo) {
-		try {
-			List<FilmDTO> result = filmService.getFilmsByTitle(title, pageNo, pageSize, sortBy);
-			return ResponseHandler.generateResponse("Successfully retrieved data!", HttpStatus.OK, result);
-		} catch (ResourceNotFoundException e) {
-			return ResponseHandler.generateResponse(e.getMessage(), HttpStatus.NOT_FOUND, null);
-		} catch (Exception e) {
-			return ResponseHandler.generateResponse(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR, null);
-		}
-	}
-
 	@GetMapping("{id}")
 	public ResponseEntity<Object> searchById(@PathVariable Integer id) {
 		try {
