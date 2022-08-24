@@ -32,7 +32,7 @@ public class CustomerController {
     public ResponseEntity<Object> getAllCustomer() {
         try {
             List<CustomerDTO> result = customerService.getAllCustomers();
-            return ResponseHandler.generateResponse("Successfully retrieved data!", HttpStatus.OK, result);
+            return ResponseHandler.generateResponse("Successfully sent data!", HttpStatus.OK, result);
         } catch (ResourceNotFoundException e) {
             return ResponseHandler.generateResponse(e.getMessage(), HttpStatus.NOT_FOUND, null);
         } catch (Exception e) {
