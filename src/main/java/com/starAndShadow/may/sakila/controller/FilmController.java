@@ -24,10 +24,11 @@ public class FilmController {
 
 	@GetMapping
 	public ResponseEntity<Object> getAllFilms(@RequestParam(defaultValue = "0") Integer pageNo,
+											  @RequestParam(defaultValue = "") String category,
 											  @RequestParam(defaultValue = "20") Integer pageSize,
 											  @RequestParam(defaultValue = "id") String sortBy) {
 		try {
-			List<FilmDTO> result = filmService.getAllFilms(pageNo, pageSize, sortBy);
+			List<FilmDTO> result = filmService.getAllFilms(category, pageNo, pageSize, sortBy);
 			return ResponseHandler.generateResponse("Successfully retrieved data!", HttpStatus.OK, result);
 		} catch (Exception e) {
 			return ResponseHandler.generateResponse(e.getMessage(), HttpStatus.MULTI_STATUS, null);
@@ -54,15 +55,15 @@ public class FilmController {
 		}
 	}
 
-	@GetMapping("/search/category")
-	public ResponseEntity<Object> searchByCategory(@RequestParam String category) {
-		try {
-			List<FilmDTO> result = filmService.getFilmsByCategory(category);
-			return ResponseHandler.generateResponse("Successfully retrieved data!", HttpStatus.OK, result);
-		} catch (Exception e) {
-			return ResponseHandler.generateResponse(e.getMessage(), HttpStatus.MULTI_STATUS, null);
-		}
-	}
+//	@GetMapping("/search/category")
+//	public ResponseEntity<Object> searchByCategory(@RequestParam String category) {
+//		try {
+//			List<FilmDTO> result = filmService.getFilmsByCategory(category);
+//			return ResponseHandler.generateResponse("Successfully retrieved data!", HttpStatus.OK, result);
+//		} catch (Exception e) {
+//			return ResponseHandler.generateResponse(e.getMessage(), HttpStatus.MULTI_STATUS, null);
+//		}
+//	}
 
 	@GetMapping("{id}")
 	public ResponseEntity<Object> searchById(@PathVariable Integer id) {

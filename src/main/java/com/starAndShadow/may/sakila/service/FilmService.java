@@ -10,11 +10,11 @@ import java.util.Map;
 
 @Service
 public interface FilmService {
-    List<FilmDTO> getAllFilms(Integer pageNo, Integer pageSize, String sortBy);
+    List<FilmDTO> getAllFilms(String category, Integer pageNo, Integer pageSize, String sortBy);
     List<FilmDTO> getFilmsByTitle(String title);
     FilmDTO getFilmById(Integer id);
     Film saveFilm(FilmDTO film);
-    List<FilmDTO> getFilmsByCategory(String category);
+//    List<FilmDTO> getFilmsByCategory(String category);
     FilmDTO updateFilmById(Integer id, Map changes);
     void deleteFilmById(Integer id);
 }

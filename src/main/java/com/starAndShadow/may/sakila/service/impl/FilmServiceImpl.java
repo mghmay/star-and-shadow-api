@@ -37,16 +37,15 @@ public class FilmServiceImpl implements FilmService {
     @Autowired
     private FilmRepository filmRepository;
 
-//    public List<FilmDTO> getAllFilms() {
-//        return filmRepository.findAll()
-//                .stream()
-//                .map(this::convertEntityToDTO)
-//                .collect(Collectors.toList());
-//    }
-    public List<FilmDTO> getAllFilms(Integer pageNo, Integer pageSize, String sortBy) {
+    public List<FilmDTO> getAllFilms(String category, Integer pageNo, Integer pageSize, String sortBy) throws ResourceNotFoundException {
         Pageable paging = PageRequest.of(pageNo, pageSize, Sort.by(sortBy));
 
-        Page<Film> pagedResult = filmRepository.findAll(paging);
+        Page<Film> pagedResult;
+        if (category != "") {
+            pagedResult = filmRepository.findByFilmCategoryNameContainingIgnoreCase(category, paging);
+        } else {
+            pagedResult = filmRepository.findAll(paging);
+        }
 
         if(pagedResult.hasContent()) {
             return pagedResult
@@ -55,14 +54,8 @@ public class FilmServiceImpl implements FilmService {
                     .map(this::convertEntityToDTO)
                     .collect(Collectors.toList());
         } else {
-            return new ArrayList<>();
+            throw new ResourceNotFoundException("Not found", "Unable to find film by id", pagedResult);
         }
-    }
-    public List<FilmDTO> getFilmsByCategory(String category) {
-        return filmRepository.findByFilmCategoryNameContainingIgnoreCase(category)
-                .stream()
-                .map(this::convertEntityToDTO)
-                .collect(Collectors.toList());
     }
     public List<FilmDTO> getFilmsByTitle(String title) {
         return filmRepository.findByTitleContainingIgnoreCase(title)
@@ -70,7 +63,7 @@ public class FilmServiceImpl implements FilmService {
                 .map(this::convertEntityToDTO)
                 .collect(Collectors.toList());
     }
-    public FilmDTO getFilmById(Integer id) {
+    public FilmDTO getFilmById(Integer id) throws ResourceNotFoundException {
         Optional<Film> response = filmRepository.findById(id);
         Film film;
         if (response.isPresent()) {
@@ -80,7 +73,7 @@ public class FilmServiceImpl implements FilmService {
         }
         return this.convertEntityToDTO(film);
     }
-    public FilmDTO updateFilmById(Integer id, Map changes) {
+    public FilmDTO updateFilmById(Integer id, Map changes) throws ResourceNotFoundException {
         Optional<Film> response = filmRepository.findById(id);
         Film film;
         if (response.isPresent()) {
@@ -92,7 +85,7 @@ public class FilmServiceImpl implements FilmService {
         filmRepository.save(film);
         return this.convertEntityToDTO(film);
     }
-    public void deleteFilmById(Integer id) {
+    public void deleteFilmById(Integer id) throws ResourceNotFoundException {
         if (filmRepository.findById(id).isPresent()) {
             filmRepository.deleteById(id);
         } else {
