@@ -109,7 +109,7 @@ public class FilmServiceImpl implements FilmService {
         HashMap<String, List<Integer>> addressInventory = new HashMap<>();
         film.getInventory()
                 .forEach((Inventory inventory) -> {
-                    String address = inventory.getStore().getAddress().getAddress();
+                    String address = inventory.getStore().getAddress().getAddressName();
                     int id = inventory.getInventoryId();
                     if (addressInventory.containsKey(address)) {
                         addressInventory.get(address).add(id);
