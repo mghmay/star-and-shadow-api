@@ -7,7 +7,7 @@ import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class LanguageTest {
+class LanguageTest {
     int languageId;
     String name;
     Set<Language> languages = new HashSet<>();

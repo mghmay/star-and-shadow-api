@@ -10,7 +10,7 @@ import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class FilmDTOTest {
+class FilmDTOTest {
     int filmId = 1;
     String title = "Hyyuuhh";
     String description = "A film about hyuh" ;

@@ -8,7 +8,7 @@ import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class FilmTest {
+class FilmTest {
     int filmId = 1;
     String title = "Hyyuuhh";
     String description = "A film about hyuh" ;

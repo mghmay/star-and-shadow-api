@@ -26,11 +26,11 @@ class AddressTest {
     }
     @Test
     void test_getAddress(){
-        assertEquals(addressName, testAddress.getAddress(),"returns address");
+        assertEquals(addressName, testAddress.getAddressName(),"returns address");
     }
     @Test
     void test_getAddress2(){
-        assertEquals(addressName2, testAddress.getAddress2(), "returns line 2 off address");
+        assertEquals(addressName2, testAddress.getAddressName2(), "returns line 2 off address");
     }
     @Test
     void test_getDistrict(){
