@@ -22,7 +22,6 @@
 		<sonar.organization>mghmay</sonar.organization>
 		<sonar.host.url>https://sonarcloud.io</sonar.host.url>
 		<cucumber.version>7.5.0</cucumber.version>
-		<sonar.coverage.jacoco.xmlReportPaths>../starAndShadow/target/site/jacoco/jacoco.xml</sonar.coverage.jacoco.xmlReportPaths>
 	</properties>
 
 	<dependencies>
@@ -127,7 +126,6 @@
 	</dependencies>
 
 	<build>
-		<finalName>sakila-api</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
@@ -146,14 +144,10 @@
 					<!-- attached to Maven test phase -->
 					<execution>
 						<id>report</id>
+						<phase>test</phase>
 						<goals>
 							<goal>report</goal>
 						</goals>
-						<configuration>
-							<formats>
-								<format>XML</format>
-							</formats>
-						</configuration>
 					</execution>
 				</executions>
 			</plugin>
