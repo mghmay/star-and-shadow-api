@@ -1,9 +1,7 @@
 package com.starAndShadow.may.sakila.service.impl;
 
-import com.starAndShadow.may.sakila.dto.FilmDTO;
 import com.starAndShadow.may.sakila.dto.RentalDTO;
-import com.starAndShadow.may.sakila.model.*;
-import com.starAndShadow.may.sakila.repository.FilmRepository;
+import com.starAndShadow.may.sakila.model.Rental;
 import com.starAndShadow.may.sakila.repository.RentalRepository;
 import com.starAndShadow.may.sakila.service.RentalService;
 import lombok.AllArgsConstructor;
@@ -11,10 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
@@ -26,7 +21,7 @@ public class RentalServiceImpl implements RentalService {
         return rentalRepository.findAll()
                 .stream()
                 .map(this::convertEntityToDTO)
-                .collect(Collectors.toList());
+                .toList();
     }
 
     public Rental saveRental(RentalDTO rentalDTO) {
@@ -35,7 +30,7 @@ public class RentalServiceImpl implements RentalService {
         rental.setLastUpdate(String.valueOf(now));
         rental.setRentalDate(String.valueOf(now));
         return rentalRepository.save(rental);
-    };
+    }
 
     private Rental convertDTOToEntity(RentalDTO rentalDTO) {  // title, description, languageId, rentalDuration, rentalRate, replacementCost,
         Rental rental = new Rental();

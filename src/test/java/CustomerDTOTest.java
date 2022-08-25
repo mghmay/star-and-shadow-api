@@ -1,28 +1,18 @@
 import com.starAndShadow.may.sakila.dto.CustomerDTO;
-import com.starAndShadow.may.sakila.model.Category;
-import com.starAndShadow.may.sakila.model.Customer;
-import com.starAndShadow.may.sakila.model.Film;
-import org.hibernate.annotations.Formula;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import javax.persistence.Column;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class CustomerDTOTest {
+class CustomerDTOTest {
     int customerId = 1;
     int storeId = 2;
     String firstName = "Blah";
     String lastName = "Flah";
     String fullName = "Blah Flah";
     int addressId = 1;
-    Boolean active = true;
     String email = "blah@blah.co.uk";
-    String createDate = "2022-08-22";
-    String lastUpdate = "2022-08-22";
     CustomerDTO testCustomer = new CustomerDTO();
-    @Test
     @BeforeEach
     void beforeAll() {
         testCustomer = new CustomerDTO(customerId, storeId,firstName,lastName, fullName, email, addressId);

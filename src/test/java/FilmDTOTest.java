@@ -1,18 +1,16 @@
 import com.starAndShadow.may.sakila.dto.FilmDTO;
-import com.starAndShadow.may.sakila.model.*;
-import org.junit.Before;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import javax.persistence.*;
-import java.lang.reflect.Field;
 import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class FilmDTOTest {
+class FilmDTOTest {
     int filmId = 1;
     String title = "Hyyuuhh";
     String description = "A film about hyuh" ;
@@ -28,15 +26,14 @@ public class FilmDTOTest {
     String rating = "PG-13";
     String[] specialFeatures = {"trailers"};
 
-    List category = new ArrayList<>();
+    List<String> category = new ArrayList<>();
 
-    List cast = new ArrayList<>();
+    List<String> cast = new ArrayList<>();
 
     String lastUpdate = "2022-08-22";
 
     FilmDTO testFilm = new FilmDTO();
 
-    @Test
     @BeforeEach
     void beforeAll() {
         testFilm = new FilmDTO(filmId,

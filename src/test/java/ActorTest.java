@@ -3,7 +3,6 @@ import com.starAndShadow.may.sakila.model.Film;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -18,7 +17,6 @@ class ActorTest {
     String fullName = "Blah blah Kentucky";
     String lastUpdate = "2022-06-23";
     Actor testActor = new Actor();
-    @Test
     @BeforeEach
     void beforeAll() {
         Film film = new Film();

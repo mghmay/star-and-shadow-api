@@ -1,7 +1,5 @@
 package com.starAndShadow.may.sakila.model;
 
-import com.starAndShadow.may.sakila.model.Film;
-import com.starAndShadow.may.sakila.model.Store;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

@@ -1,22 +1,20 @@
 import com.starAndShadow.may.sakila.model.Address;
 import com.starAndShadow.may.sakila.model.Inventory;
-import com.starAndShadow.may.sakila.model.Rental;
 import com.starAndShadow.may.sakila.model.Store;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import javax.persistence.*;
 import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class StoreTest {
-    private int storeId;
+class StoreTest {
+    int storeId;
     Set<Inventory> inventory;
     Address address;
     String lastUpdate;
     Store testStore = new Store();
-    @Test
+
     @BeforeEach
     void beforeAll() {
         testStore = new Store(storeId,

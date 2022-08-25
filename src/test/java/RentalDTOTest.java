@@ -1,12 +1,10 @@
 import com.starAndShadow.may.sakila.dto.RentalDTO;
-import com.starAndShadow.may.sakila.model.Language;
-import com.starAndShadow.may.sakila.model.Rental;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class RentalDTOTest {
+class RentalDTOTest {
     String rentalDate;
     Integer inventoryId;
     Integer customerId;
@@ -14,7 +12,6 @@ public class RentalDTOTest {
     String lastUpdate;
     RentalDTO testRental = new RentalDTO();
 
-    @Test
     @BeforeEach
     void beforeAll() {
         testRental = new RentalDTO(

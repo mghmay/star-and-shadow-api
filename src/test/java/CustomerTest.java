@@ -1,15 +1,10 @@
-import com.starAndShadow.may.sakila.model.Category;
 import com.starAndShadow.may.sakila.model.Customer;
-import com.starAndShadow.may.sakila.model.Film;
-import org.hibernate.annotations.Formula;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import javax.persistence.Column;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class CustomerTest {
+class CustomerTest {
     int customerId = 1;
     int storeId = 2;
     String firstName = "Blah";
@@ -21,7 +16,6 @@ public class CustomerTest {
     String createDate = "2022-08-22";
     String lastUpdate = "2022-08-22";
     Customer testCustomer = new Customer();
-    @Test
     @BeforeEach
     void beforeAll() {
         testCustomer = new Customer(customerId, storeId,firstName,lastName, fullName, addressId, active, email, createDate, lastUpdate);

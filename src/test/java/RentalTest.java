@@ -1,11 +1,10 @@
-import com.starAndShadow.may.sakila.model.Language;
 import com.starAndShadow.may.sakila.model.Rental;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class RentalTest {
+class RentalTest {
     Integer rentalId;
     String rentalDate;
     Integer inventoryId;
@@ -14,7 +13,6 @@ public class RentalTest {
     String lastUpdate;
     Rental testRental = new Rental();
 
-    @Test
     @BeforeEach
     void beforeAll() {
         testRental = new Rental(rentalId,

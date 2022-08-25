@@ -1,10 +1,5 @@
 package com.starAndShadow.may.sakila.service.impl;
 
-import com.google.gson.Gson;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.reflect.TypeToken;
 import com.starAndShadow.may.sakila.dto.FilmDTO;
 import com.starAndShadow.may.sakila.exception.ResourceNotFoundException;
 import com.starAndShadow.may.sakila.model.Actor;
@@ -13,7 +8,6 @@ import com.starAndShadow.may.sakila.model.Film;
 import com.starAndShadow.may.sakila.model.Inventory;
 import com.starAndShadow.may.sakila.repository.FilmRepository;
 import com.starAndShadow.may.sakila.service.FilmService;
-import com.sun.istack.Nullable;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -21,15 +15,10 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
-import org.springframework.web.server.ResponseStatusException;
 
-import javax.annotation.PostConstruct;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.*;
-import java.util.stream.Collectors;
-
-import static org.springframework.http.HttpStatus.NOT_FOUND;
 
 @Service
 @AllArgsConstructor
@@ -51,7 +40,7 @@ public class FilmServiceImpl implements FilmService {
                     .getContent()
                     .stream()
                     .map(this::convertEntityToDTO)
-                    .collect(Collectors.toList());
+                    .toList();
         } else {
             throw new ResourceNotFoundException("films", "category and title", String.format("%s, %s", category, title));
         }

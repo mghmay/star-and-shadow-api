@@ -4,7 +4,6 @@ import com.starAndShadow.may.sakila.dto.CustomerDTO;
 import com.starAndShadow.may.sakila.exception.ResourceNotFoundException;
 import com.starAndShadow.may.sakila.response.ResponseHandler;
 import com.starAndShadow.may.sakila.service.CustomerService;
-import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

@@ -2,17 +2,13 @@ import com.starAndShadow.may.sakila.model.Address;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class AddressTest {
     //test address getters and setters
     Integer addressId = 1;
-    String address = "123 blah";
-    String address2 = "Blah blah";
+    String addressName = "123 blah";
+    String addressName2 = "Blah blah";
     String district = "Kentucky";
     String postalCode = "NE12 3RF";
     String phone = "123456789";
@@ -20,10 +16,9 @@ class AddressTest {
     String lastUpdate = "2022-06-23";
 
     Address testAddress = new Address();
-    @Test
     @BeforeEach
     void beforeAll() {
-        testAddress = new Address(addressId, address, address2, district, postalCode, phone, location, lastUpdate);
+        testAddress = new Address(addressId, addressName, addressName2, district, postalCode, phone, location, lastUpdate);
     }
     @Test
     void test_getAddressId(){
@@ -31,11 +26,11 @@ class AddressTest {
     }
     @Test
     void test_getAddress(){
-        assertEquals(address, testAddress.getAddress(),"returns address");
+        assertEquals(addressName, testAddress.getAddressName(),"returns address");
     }
     @Test
     void test_getAddress2(){
-        assertEquals(address2, testAddress.getAddress2(), "returns line 2 off address");
+        assertEquals(addressName2, testAddress.getAddressName2(), "returns line 2 off address");
     }
     @Test
     void test_getDistrict(){
