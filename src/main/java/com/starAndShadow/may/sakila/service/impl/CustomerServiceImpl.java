@@ -21,7 +21,7 @@ public class CustomerServiceImpl implements CustomerService {
         return customerRepository.findAll()
                 .stream()
                 .map(this::convertEntityToDTO)
-                .collect(Collectors.toList());
+                .toList();
     }
 
 

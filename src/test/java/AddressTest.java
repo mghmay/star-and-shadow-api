@@ -7,8 +7,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class AddressTest {
     //test address getters and setters
     Integer addressId = 1;
-    String address = "123 blah";
-    String address2 = "Blah blah";
+    String addressName = "123 blah";
+    String addressName2 = "Blah blah";
     String district = "Kentucky";
     String postalCode = "NE12 3RF";
     String phone = "123456789";
@@ -18,7 +18,7 @@ class AddressTest {
     Address testAddress = new Address();
     @BeforeEach
     void beforeAll() {
-        testAddress = new Address(addressId, address, address2, district, postalCode, phone, location, lastUpdate);
+        testAddress = new Address(addressId, addressName, addressName2, district, postalCode, phone, location, lastUpdate);
     }
     @Test
     void test_getAddressId(){
@@ -26,11 +26,11 @@ class AddressTest {
     }
     @Test
     void test_getAddress(){
-        assertEquals(address, testAddress.getAddress(),"returns address");
+        assertEquals(addressName, testAddress.getAddress(),"returns address");
     }
     @Test
     void test_getAddress2(){
-        assertEquals(address2, testAddress.getAddress2(), "returns line 2 off address");
+        assertEquals(addressName2, testAddress.getAddress2(), "returns line 2 off address");
     }
     @Test
     void test_getDistrict(){
