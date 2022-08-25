@@ -30,7 +30,7 @@ public class RentalServiceImpl implements RentalService {
         rental.setLastUpdate(String.valueOf(now));
         rental.setRentalDate(String.valueOf(now));
         return rentalRepository.save(rental);
-    };
+    }
 
     private Rental convertDTOToEntity(RentalDTO rentalDTO) {  // title, description, languageId, rentalDuration, rentalRate, replacementCost,
         Rental rental = new Rental();
