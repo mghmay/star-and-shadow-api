@@ -48,4 +48,52 @@ class CustomerDTOTest {
         assertEquals(email, testCustomer.getEmail(), "returns email");
     }
 
+    @Test
+    void test_setCustomerId(){
+        int expected = 123;
+        testCustomer.setCustomerId(expected);
+        assertEquals(expected, testCustomer.getCustomerId(), "set customer id.");
+    }
+
+    @Test
+    void test_setStoreId(){
+        int expected = 123;
+        testCustomer.setStoreId(expected);
+        assertEquals(expected, testCustomer.getStoreId(), "set store id.");
+    }
+
+    @Test
+    void test_setFirstName(){
+        String expected = "blah";
+        testCustomer.setFirstName(expected);
+        assertEquals(expected, testCustomer.getFirstName(), "set first name.");
+    }
+
+    @Test
+    void test_setLastName(){
+        String expected = "flah";
+        testCustomer.setLastName(expected);
+        assertEquals(expected, testCustomer.getLastName(), "set last name.");
+    }
+
+    @Test
+    void test_setFullName(){
+        String expected = "flah blah";
+        testCustomer.setFullName(expected);
+        assertEquals(expected, testCustomer.getFullName(), "set full name.");
+    }
+
+    @Test
+    void test_setAddressId(){
+        int expected = 1;
+        testCustomer.setAddressId(expected);
+        assertEquals(expected, testCustomer.getAddressId(), "set last name.");
+    }
+
+    @Test
+    void test_setEmail(){
+        String expected = "blahflah@flah.com";
+        testCustomer.setEmail(expected);
+        assertEquals(expected, testCustomer.getEmail(), "set last name.");
+    }
 }
