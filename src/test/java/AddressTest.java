@@ -2,10 +2,6 @@ import com.starAndShadow.may.sakila.model.Address;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class AddressTest {
@@ -20,7 +16,6 @@ class AddressTest {
     String lastUpdate = "2022-06-23";
 
     Address testAddress = new Address();
-    @Test
     @BeforeEach
     void beforeAll() {
         testAddress = new Address(addressId, address, address2, district, postalCode, phone, location, lastUpdate);

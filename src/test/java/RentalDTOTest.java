@@ -1,6 +1,4 @@
 import com.starAndShadow.may.sakila.dto.RentalDTO;
-import com.starAndShadow.may.sakila.model.Language;
-import com.starAndShadow.may.sakila.model.Rental;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -14,7 +12,6 @@ public class RentalDTOTest {
     String lastUpdate;
     RentalDTO testRental = new RentalDTO();
 
-    @Test
     @BeforeEach
     void beforeAll() {
         testRental = new RentalDTO(

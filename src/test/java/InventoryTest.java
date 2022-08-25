@@ -1,11 +1,8 @@
-import com.starAndShadow.may.sakila.model.Customer;
 import com.starAndShadow.may.sakila.model.Film;
 import com.starAndShadow.may.sakila.model.Inventory;
 import com.starAndShadow.may.sakila.model.Store;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-import javax.persistence.*;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -15,7 +12,6 @@ public class InventoryTest {
     Store store = new Store();
     String lastUpdate;
     Inventory testInventory = new Inventory();
-    @Test
     @BeforeEach
     void beforeAll() {
         testInventory = new Inventory(inventoryId, film, store,lastUpdate);

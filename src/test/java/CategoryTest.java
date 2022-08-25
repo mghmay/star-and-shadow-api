@@ -1,11 +1,7 @@
-import com.starAndShadow.may.sakila.model.Address;
 import com.starAndShadow.may.sakila.model.Category;
 import com.starAndShadow.may.sakila.model.Film;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-import javax.persistence.Column;
-import javax.persistence.ManyToMany;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -20,7 +16,6 @@ class CategoryTest {
     String lastUpdate = "2022-06-23";
 
     Category testCategory = new Category();
-    @Test
     @BeforeEach
     void beforeAll() {
         Film film = new Film();

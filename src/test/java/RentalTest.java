@@ -1,4 +1,3 @@
-import com.starAndShadow.may.sakila.model.Language;
 import com.starAndShadow.may.sakila.model.Rental;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -14,7 +13,6 @@ public class RentalTest {
     String lastUpdate;
     Rental testRental = new Rental();
 
-    @Test
     @BeforeEach
     void beforeAll() {
         testRental = new Rental(rentalId,

@@ -1,15 +1,10 @@
 package com.starAndShadow.may.sakila.customer;
 
-import com.starAndShadow.may.sakila.model.Actor;
 import com.starAndShadow.may.sakila.model.Customer;
-import com.starAndShadow.may.sakila.model.Film;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.junit.jupiter.api.Assertions;
-
-import java.util.HashSet;
-import java.util.Set;
 
 public class CustomerStepDefs {
     Customer customer;

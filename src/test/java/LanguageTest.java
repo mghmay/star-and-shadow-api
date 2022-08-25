@@ -1,9 +1,7 @@
-import com.starAndShadow.may.sakila.model.Inventory;
 import com.starAndShadow.may.sakila.model.Language;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -17,7 +15,6 @@ public class LanguageTest {
 
     Language testLanguage = new Language();
 
-    @Test
     @BeforeEach
     void beforeAll() {
         Language language = new Language();

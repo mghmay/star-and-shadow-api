@@ -1,12 +1,8 @@
 import com.starAndShadow.may.sakila.model.*;
-import org.junit.Before;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import javax.persistence.*;
-import java.lang.reflect.Field;
 import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -36,7 +32,6 @@ public class FilmTest {
 
     Film testFilm = new Film();
 
-    @Test
     @BeforeEach
     void beforeAll() {
         Category category1 = new Category();
