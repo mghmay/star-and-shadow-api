@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class mvAddressTest {
+class AddressTest {
     //test address getters and setters
     Integer addressId = 1;
     String addressName = "123 blah";

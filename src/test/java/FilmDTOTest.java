@@ -25,13 +25,9 @@ class FilmDTOTest {
     BigDecimal replacementCost = BigDecimal.valueOf(10.50);
     String rating = "PG-13";
     String[] specialFeatures = {"trailers"};
-
     List<String> category = new ArrayList<>();
-
     List<String> cast = new ArrayList<>();
-
     String lastUpdate = "2022-08-22";
-
     FilmDTO testFilm = new FilmDTO();
 
     @BeforeEach
