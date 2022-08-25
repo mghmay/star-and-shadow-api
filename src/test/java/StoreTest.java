@@ -8,7 +8,7 @@ import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class StoreTest {
+class StoreTest {
     int storeId;
     Set<Inventory> inventory;
     Address address;
