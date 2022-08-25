@@ -39,4 +39,3 @@ class StoreTest {
         assertEquals(lastUpdate, testStore.getLastUpdate(), "returns last update.");
     }
 }
-// blah blah test
