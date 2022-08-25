@@ -1,16 +1,13 @@
 package com.starAndShadow.may.sakila.service.impl;
 
 import com.starAndShadow.may.sakila.dto.CustomerDTO;
-import com.starAndShadow.may.sakila.dto.FilmDTO;
-import com.starAndShadow.may.sakila.model.*;
+import com.starAndShadow.may.sakila.model.Customer;
 import com.starAndShadow.may.sakila.repository.CustomerRepository;
 import com.starAndShadow.may.sakila.service.CustomerService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 

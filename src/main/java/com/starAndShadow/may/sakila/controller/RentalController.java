@@ -1,9 +1,7 @@
 package com.starAndShadow.may.sakila.controller;
 
-import com.starAndShadow.may.sakila.dto.FilmDTO;
 import com.starAndShadow.may.sakila.dto.RentalDTO;
 import com.starAndShadow.may.sakila.exception.ResourceNotFoundException;
-import com.starAndShadow.may.sakila.model.Film;
 import com.starAndShadow.may.sakila.model.Rental;
 import com.starAndShadow.may.sakila.response.ResponseHandler;
 import com.starAndShadow.may.sakila.service.RentalService;
